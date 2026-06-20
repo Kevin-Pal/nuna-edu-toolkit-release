@@ -61,7 +61,7 @@ s.addText([
 // --- AIoT Lab logo + affiliation + contact (letterhead above footer bar) ---
 s.addImage({ path: LAB, x: 0.55, y: 6.18, w: 0.82, h: 0.82 });
 s.addText(
-  "Anlan Peng · Ruihan Xie · Yihang Su · Zhenyu Yan · Zhiyuan Xie · Guoliang Xing  —  AIoT Lab · The Chinese University of Hong Kong",
+  "Anlan Peng · Ruihan Xie · Yihang Su · Siyang Jiang · Zhiyuan Xie · Zhenyu Yan · Guoliang Xing  —  AIoT Lab · The Chinese University of Hong Kong",
   { x: 1.52, y: 6.24, w: 11.3, h: 0.34, fontFace: BODY, fontSize: 11.5, italic: true,
     color: MUTED, margin: 0, valign: "middle" }
 );

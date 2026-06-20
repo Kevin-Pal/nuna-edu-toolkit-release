@@ -104,7 +104,7 @@ Get one from [thingx.ai](https://www.thingx.ai/products/nuna-emotion-tracking-pe
 
 ## Credits
 
-Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Zhenyu Yan, Zhiyuan Xie, Guoliang Xing.
+Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing.
 [AIoT Lab](https://aiot.ie.cuhk.edu.hk/), The Chinese University of Hong Kong.
 
 A sibling project to (not part of) NunaPin; both use the Nuna wearable.
