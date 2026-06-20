@@ -94,8 +94,8 @@ section { margin: 46px 0; }
 /* Features */
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .feature { padding: 18px; border: 1px solid var(--line); border-radius: 14px; }
-.feature .ico { font-size: 22px; }
-.feature h3 { margin: 8px 0 4px; font-size: 16px; color: var(--navy); }
+.feature h3 { margin: 0 0 8px; font-size: 16px; color: var(--navy); }
+.feature h3 .ico { font-size: 19px; margin-right: 8px; vertical-align: -2px; }
 .feature p { margin: 0; font-size: 14px; color: var(--muted); }
 
 /* Get-started cards */
@@ -149,8 +149,9 @@ footer .small a:hover { text-decoration: underline; }
 }
 .device-photo { display: flex; justify-content: center; }
 .device-photo img {
-    width: 100%; max-width: 230px; height: auto;
+    width: 100%; max-width: 240px; height: auto;
     border-radius: 14px; background: #fff; border: 1px solid var(--line);
+    padding: 18px;
 }
 .device-info .kicker { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--teal); }
 .device-info h2 { margin: 6px 0 8px; font-size: 24px; color: var(--navy); letter-spacing: -.3px; }
