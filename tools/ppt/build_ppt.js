@@ -47,7 +47,7 @@ const lead = (t) => ({ text: t, options: { bold: true, color: TEAL } });
 const rest = (t) => ({ text: t, options: { breakLine: true, paraSpaceAfter: 12, color: INK } });
 s.addText([
   lead("Capture"),  rest("  wearable audio streamed to your own server, sliced into 1-minute segments"),
-  lead("Recall"),   rest("  ASR transcript previews (Qwen3-ASR or mock) speed up annotation"),
+  lead("Recall"),   rest("  pluggable ASR previews (bring your own model) speed up annotation"),
   lead("Annotate"), rest("  event-driven block + point labels — a swappable, multi-granularity schema"),
   lead("Open"),     { text: "  self-hostable, privacy-first, free for non-commercial use", options: { color: INK } },
 ], { x: 0.78, y: 3.05, w: 7.7, h: 2.7, fontFace: BODY, fontSize: 16, bullet: { indent: 16 }, margin: 0 });

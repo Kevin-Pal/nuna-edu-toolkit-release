@@ -20,7 +20,7 @@ control: they choose which recordings to share and can delete the rest.
 
 - **First-person audio capture** via the Nuna wearable → your own ingest server.
 - **1-minute segmentation** with time-grouped browsing (hour → quarter → minute).
-- **ASR-assisted recall:** speech-to-text previews per segment (pluggable provider; Alibaba DashScope Qwen3-ASR supported, or run in mock mode).
+- **ASR-assisted recall:** per-segment speech-to-text previews via a pluggable provider — bring your own ASR model (Alibaba DashScope Qwen3-ASR included); a no-credentials placeholder is bundled for offline runs.
 - **Event-driven, multi-granularity annotation:** *Block* labels for continuous events (scene / behavior / emotion) and *Point* labels for finer sub-events.
 - **Swappable label schema** — the web-based forms are easy to repurpose for other dataset tasks.
 - **Privacy-first:** participants pick what to share and can delete recordings.
