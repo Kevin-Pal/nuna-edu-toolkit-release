@@ -95,12 +95,21 @@ The `site/` directory is a static GitHub Pages site (landing page + no-backend b
 demo) for showcasing the toolkit. It is deployed by `.github/workflows/pages.yml`.
 QR codes are regenerated reproducibly with `python tools/generate_qr.py`.
 
+## The Nuna pendant
+
+First-person audio is captured by **Nuna**, ThingX's AI emotion-tracking pendant.
+Get one from [thingx.ai](https://www.thingx.ai/products/nuna-emotion-tracking-pendants) ·
+[Amazon](https://www.amazon.com/NUNA-Pendant-Monitoring-Mindfulness-Meditation/dp/B0G4QJG5QR) ·
+[JD.com (京东)](https://3.cn/2SU-kIe1?jkl=@IEWKw4KAc2@).
+
 ## Credits
 
 Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Zhenyu Yan, Zhiyuan Xie, Guoliang Xing.
-AIoT Lab, The Chinese University of Hong Kong.
+[AIoT Lab](https://aiot.ie.cuhk.edu.hk/), The Chinese University of Hong Kong.
 
 A sibling project to (not part of) NunaPin; both use the Nuna wearable.
+
+**Contact:** Anlan Peng — [pa025@ie.cuhk.edu.hk](mailto:pa025@ie.cuhk.edu.hk) · [AIoT Lab, CUHK](https://aiot.ie.cuhk.edu.hk/)
 
 ## License
 
