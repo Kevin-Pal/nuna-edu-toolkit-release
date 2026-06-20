@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Block #{{ block.id }} - {{ block.date }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <a href="/tasks/{{ block.date }}" class="btn btn-outline-secondary me-2"><i class="bi bi-arrow-left"></i> {{ t(request, "block.back_day") }}</a>
+        <span class="h4 align-middle">Block #{{ block.id }}</span>
+        <span class="badge bg-primary ms-2">{{ block.date }}</span>
+        <span class="badge bg-light text-dark border ms-2">{{ block.segment_count }} {{ t(request, "detail.minutes") }}</span>
+    </div>
+    <div class="text-muted small">
+        {{ t(request, "block.range") }}: ID {{ block.start_audio_id }} - {{ block.end_audio_id }}
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header">{{ t(request, "block.scene") }}</div>
+            <div class="card-body">
+                <div class="fw-bold">{{ block.scene_adj }} {{ block.scene_noun }}</div>
+                <div class="text-muted small">{{ block.scene_note or t(request, "block.no_note") }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header">{{ t(request, "block.event") }}</div>
+            <div class="card-body">
+                <div class="fw-bold">{{ block.be_adv }} {{ block.be_verb }}</div>
+                <div class="text-muted small">{{ block.be_note or t(request, "block.no_note") }}</div>
+                <div class="mt-2">
+                    <span class="badge bg-success">Valence: {{ block.emo_valence }}</span>
+                    <span class="badge bg-info text-dark">Arousal: {{ block.emo_arousal }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>{{ t(request, "block.points_created") }}</span>
+    </div>
+    <div class="card-body p-0">
+        {% if points %}
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ t(request, "block.table.range") }}</th>
+                        <th>{{ t(request, "block.table.type") }}</th>
+                        <th>{{ t(request, "block.table.content") }}</th>
+                        <th>{{ t(request, "block.table.emotion") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in points %}
+                    <tr>
+                        <td>#{{ p.id }}</td>
+                        <td>{{ p.start_audio_id }} - {{ p.end_audio_id }} ({{ p.segment_count }} {{ t(request, "detail.minutes") }})</td>
+                        <td>
+                            {% if p.pe_type == 'env_fluctuation' %}
+                            <span class="badge bg-secondary">{{ t(request, "block.type.env") }}</span>
+                            {% else %}
+                            <span class="badge bg-primary">{{ t(request, "block.type.action") }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if p.pe_type == 'env_fluctuation' %}
+                                {{ p.env_subject }} {{ p.env_predicate }}
+                            {% else %}
+                                {{ p.act_adv }} {{ p.act_verb }}
+                            {% endif %}
+                            {% if p.pe_note %}<span class="text-muted small">（{{ p.pe_note }}）</span>{% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-success">V: {{ p.emo_valence }}</span>
+                            <span class="badge bg-info text-dark">A: {{ p.emo_arousal }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="p-3 text-muted">{{ t(request, "block.no_point") }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card shadow-sm mb-5">
+    <div class="list-group list-group-flush" id="segment-list">
+        {% for seg in segments %}
+        <div class="list-group-item segment-row py-2" id="row-{{ seg.id }}">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <input type="checkbox" class="form-check-input segment-selector" 
+                        name="segment-selector"
+                        value="{{ seg.id }}"
+                        data-id="{{ seg.id }}" 
+                        data-ts="{{ seg.start_ts }}">
+                </div>
+                <div class="col-1 text-muted font-monospace small">
+                    <span class="local-time" data-ts="{{ seg.start_ts }}" data-format="time"></span>
+                </div>
+                <div class="col-4">
+                    <audio controls src="/audio/{{ seg.id }}/stream" class="w-100" preload="none"></audio>
+                </div>
+                <div class="col">
+                    <div class="mb-1">
+                        <span class="badge bg-primary text-decoration-none">Block #{{ block.id }}</span>
+                        <span class="badge bg-light text-dark border">{{ block.emo_valence }}/{{ block.emo_arousal }}</span>
+                    </div>
+                    {% if seg.points %}
+                    <div class="mt-1 small">
+                        {% for p in seg.points %}
+                        <span class="badge bg-warning text-dark">Point #{{ p.id }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="sticky-action-bar" class="card bg-dark text-white border-0">
+    <div class="card-body p-3 d-flex justify-content-between align-items-center">
+        <div>
+            <span class="h5 mb-0" id="selected-count">0</span> {{ t(request, "detail.selected_count") }}
+            <small class="text-white-50 ms-2" id="selected-range">{{ t(request, "js.start_end_time") }}</small>
+        </div>
+        <div>
+            <button class="btn btn-outline-light btn-sm me-2" id="clear-selection-btn">{{ t(request, "detail.cancel") }}</button>
+            <button class="btn btn-primary" id="create-point-btn" data-bs-toggle="modal" data-bs-target="#createPointModal" disabled>{{ t(request, "block.create_point") }}</button>
+        </div>
+    </div>
+</div>
+
+{% include "components/modals.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 将当前 Block 信息写入表单隐藏字段
+    document.getElementById('pointBlockId').value = "{{ block.id }}";
+    document.getElementById('pointDateLabel').textContent = "{{ block.date }}";
+</script>
+<script src="/static/js/block_detail.js"></script>
+{% endblock %}

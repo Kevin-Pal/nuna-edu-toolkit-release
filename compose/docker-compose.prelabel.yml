@@ -1,0 +1,18 @@
+services:
+  prelabel-service:
+    build: ../prelabel_service
+    image: nuna_prelabel_service_image
+    pull_policy: never
+    container_name: nuna_prelabel_service
+    ports:
+      - "${PRELABEL_PORT}:8100"
+    volumes:
+      - ../runtime/data:/runtime/data
+    env_file:
+      - ../runtime/env/app.env
+      - ../runtime/env/prelabel.env
+    environment:
+      # Forward host env DASHSCOPE_API_KEY into container as HOST_DASHSCOPE_API_KEY.
+      # prelabel_service will prefer HOST_DASHSCOPE_API_KEY, then fallback to DASHSCOPE_API_KEY from env files.
+      HOST_DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+    restart: unless-stopped

@@ -1,0 +1,15 @@
+services:
+  app:
+    extends:
+      file: docker-compose.app.yml
+      service: app
+
+  receiver:
+    extends:
+      file: docker-compose.app.yml
+      service: receiver
+
+  prelabel-service:
+    extends:
+      file: docker-compose.prelabel.yml
+      service: prelabel-service

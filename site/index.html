@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuna-Edu-Toolkit — First-Person Audio Data Collection &amp; Annotation</title>
+    <meta name="description" content="A self-hostable toolkit for collecting and annotating first-person ambient audio from the Nuna wearable — and turning it into research datasets. An open toolkit from the AIoT Lab, CUHK.">
+    <link rel="stylesheet" href="assets/css/landing.css">
+</head>
+<body>
+
+<div class="topbar">
+    <a class="logo" href="index.html">nuna<span class="dot">.</span>edu-toolkit</a>
+    <nav>
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#get">Get started</a>
+        <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+</div>
+
+<div class="wrap">
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="badge-pill">AIoT Lab &middot; CUHK</span>
+        <h1>Turn everyday ambient sound into <span class="accent">research-ready audio datasets</span>.</h1>
+        <p class="lead">
+            Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating
+            first-person audio. The Nuna wearable streams sound to <em>your</em> server, where it is
+            sliced into 1-minute segments, transcribed with ASR for fast recall, and labeled through a
+            flexible, event-driven schema — with participants choosing what to share.
+        </p>
+        <div class="cta-row">
+            <a class="btn btn-accent" href="demo/index.html">▶ Try the live demo</a>
+            <a class="btn btn-ghost" href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">★ View on GitHub</a>
+            <a class="btn btn-ghost" href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">⬇ Get the app (Android)</a>
+        </div>
+    </header>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+        <h2 class="section-title">How it works</h2>
+        <p class="section-sub">From wearable to labeled dataset, in four steps.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="n">1</div>
+                <h3>Wear &amp; capture</h3>
+                <p>The Nuna necklace captures first-person ambient audio through its microphone.</p>
+            </div>
+            <div class="step">
+                <div class="n">2</div>
+                <h3>Stream &amp; slice</h3>
+                <p>Audio is streamed to your own server and split into 1-minute segments by day.</p>
+            </div>
+            <div class="step">
+                <div class="n">3</div>
+                <h3>ASR pre-label</h3>
+                <p>Each segment gets a speech-to-text preview so you can recall context at a glance.</p>
+            </div>
+            <div class="step">
+                <div class="n">4</div>
+                <h3>Annotate &amp; export</h3>
+                <p>Select an event, label it (block + point), and build a first-person dataset.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+        <h2 class="section-title">Why it's useful</h2>
+        <p class="section-sub">Built for researchers running first-person audio studies.</p>
+        <div class="features">
+            <div class="feature"><div class="ico">🧩</div><h3>Swappable label schema</h3><p>Event-driven, multi-granularity blocks &amp; points. Easy to repurpose the web forms for new dataset tasks.</p></div>
+            <div class="feature"><div class="ico">🗣️</div><h3>ASR-assisted recall</h3><p>Pluggable speech-to-text (Qwen3-ASR or mock) to speed up annotation and jog memory.</p></div>
+            <div class="feature"><div class="ico">🔒</div><h3>Privacy-first</h3><p>Participants pick what to share and can delete recordings they don't want in the dataset.</p></div>
+            <div class="feature"><div class="ico">🏠</div><h3>Self-hostable</h3><p>One Docker Compose stack, SQLite by default, all config externalized. Your data stays yours.</p></div>
+            <div class="feature"><div class="ico">⏱️</div><h3>1-minute segments</h3><p>Time-grouped browsing (hour → quarter → minute) with inline playback.</p></div>
+            <div class="feature"><div class="ico">🌐</div><h3>Source available</h3><p>Full source on GitHub - free for research &amp; non-commercial use. Bilingual UI (English / 简体中文).</p></div>
+        </div>
+    </section>
+
+    <!-- GET STARTED -->
+    <section id="get">
+        <h2 class="section-title">Get started</h2>
+        <p class="section-sub">Scan a code or tap a button.</p>
+        <div class="cards">
+
+            <div class="card2 feature-demo">
+                <div class="kicker">Try it now</div>
+                <h3>Live browser demo</h3>
+                <p>Explore the annotation workspace with sample data — no install, nothing saved.</p>
+                <div class="demo-emoji">🕹️</div>
+                <div class="spacer"></div>
+                <a class="btn btn-dark" href="demo/index.html">Open the demo →</a>
+            </div>
+
+            <div class="card2">
+                <div class="kicker">Android app</div>
+                <h3>Data-collection app</h3>
+                <p>Pair your Nuna wearable and stream audio to your server (internal beta).</p>
+                <div class="qr"><img src="assets/qr/app.png" alt="QR code to download the Nuna data-collection Android app"></div>
+                <div class="spacer"></div>
+                <a class="btn btn-outline" href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">Download (Android)</a>
+            </div>
+
+            <div class="card2">
+                <div class="kicker">Source available</div>
+                <h3>Self-host the platform</h3>
+                <p>Clone the repo and run the full stack for the complete experience.</p>
+                <div class="qr"><img src="assets/qr/repo.png" alt="QR code to the GitHub repository (source available)"></div>
+                <div class="spacer"></div>
+                <a class="btn btn-outline" href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">View on GitHub</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="credit">Nuna-Edu-Toolkit — an open toolkit for first-person audio data collection &amp; annotation.</div>
+        <div class="small">Anlan Peng, Ruihan Xie, Yihang Su, Zhenyu Yan, Zhiyuan Xie, Guoliang Xing · AIoT Lab · The Chinese University of Hong Kong.</div>
+        <div class="small">The data-collection app link is an internal beta. The hosted demo uses sample data and saves nothing.</div>
+        <div class="small">Licensed under the PolyForm Noncommercial License 1.0.0 - free for non-commercial &amp; research use.</div>
+    </footer>
+
+</div>
+</body>
+</html>

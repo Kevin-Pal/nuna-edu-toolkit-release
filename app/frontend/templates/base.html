@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang(request) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nuna Audio Lab{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link href="/static/css/style.css?v={{ request.app.state.asset_version }}" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nuna Audio Lab</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if request.session.get("userId") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tasks">{{ t(request, "nav.tasks") }}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown me-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ t(request, "lang.label") }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="/set-lang?lang=zh-CN&next={{ request.url.path }}">{{ t(request, "lang.zh") }}</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/set-lang?lang=en&next={{ request.url.path }}">{{ t(request, "lang.en") }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if request.session.get("userId") %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ request.session.get("userId") }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <form action="/auth/logout" method="post">
+                                    <button type="submit" class="dropdown-item">{{ t(request, "nav.logout") }}</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">{{ t(request, "nav.login") }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/register">{{ t(request, "nav.register") }}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% with messages = get_flashed_messages(request, with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js?v={{ request.app.state.asset_version }}"></script>
+    <script>
+        window.__LANG = "{{ current_lang(request) }}";
+        window.__I18N = {{ i18n_catalog(request) | safe }};
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const existingTz = document.cookie.split('; ').find(c => c.startsWith('tz='));
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            if (tz) {
+                document.documentElement.setAttribute('data-tz', tz);
+                document.cookie = `tz=${encodeURIComponent(tz)};path=/;max-age=31536000`;
+            }
+            // Ensure first load also gets grouped correctly: if tz cookie was missing, reload once after setting it
+            if (!existingTz && tz) {
+                if (!sessionStorage.getItem('tz_cookie_set')) {
+                    sessionStorage.setItem('tz_cookie_set', '1');
+                    window.location.reload();
+                    return;
+                }
+            }
+
+            const timeElements = document.querySelectorAll('.local-time');
+            timeElements.forEach(el => {
+                const ts = parseInt(el.getAttribute('data-ts'), 10);
+                if (!ts || ts <= 0) {
+                    el.textContent = el.getAttribute('data-placeholder') || '-';
+                    return;
+                }
+
+                const date = new Date(ts * 1000);
+                const format = el.getAttribute('data-format') || 'full';
+
+                let text = '';
+                if (format === 'time') {
+                    text = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                } else {
+                    text = date.toLocaleString([], {
+                        year: 'numeric', month: '2-digit', day: '2-digit',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit',
+                        hour12: false
+                    });
+                }
+                el.textContent = text;
+                el.title = date.toString();
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

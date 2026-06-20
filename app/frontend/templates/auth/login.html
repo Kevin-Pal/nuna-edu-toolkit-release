@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t(request, "auth.login.title") }} - Nuna Audio Lab{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{{ t(request, "auth.login.title") }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/auth/login">
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">{{ t(request, "auth.login.user") }}</label>
+                        <input type="text" class="form-control" id="userId" name="username" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ t(request, "auth.login.password") }}</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">{{ t(request, "auth.login.submit") }}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small>{{ t(request, "auth.login.no_account") }} <a href="/auth/register">{{ t(request, "auth.login.register_now") }}</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+/* Demo-only chrome (banner, toast, tweaks). Loaded AFTER the mirrored style.css
+   so the real app styles stay pristine. */
+
+.demo-banner {
+    position: sticky;
+    top: 0;
+    z-index: 3000;
+    background: #0E2841;
+    color: #fff;
+    font-size: 14px;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.demo-banner a { color: #7fd3ff; text-decoration: underline; }
+.demo-banner .demo-banner-home {
+    position: absolute;
+    right: 16px;
+    color: #cdd8e3;
+    text-decoration: none;
+}
+@media (max-width: 760px) { .demo-banner .demo-banner-home { display: none; } }
+
+.demo-badge {
+    background: #E97132;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    vertical-align: middle;
+    letter-spacing: .3px;
+}
+
+#demo-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 96px;
+    transform: translateX(-50%) translateY(16px);
+    background: #212529;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .3);
+    z-index: 4000;
+    max-width: 92%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+    font-size: 14px;
+}
+#demo-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

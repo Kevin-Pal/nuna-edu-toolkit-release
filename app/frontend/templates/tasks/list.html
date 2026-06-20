@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t(request, "tasks.title") }} - Nuna Audio Lab{% endblock %}
+
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        <h2>{{ t(request, "tasks.title") }}</h2>
+        <p class="text-muted mb-0">{{ t(request, "tasks.last_sync") }}: 
+            <span class="local-time" data-ts="{{ last_sync_ts }}" data-format="full" data-placeholder="{{ t(request, 'tasks.never') }}"></span>
+            {% if sync_status == 'failed' %}
+            <span class="badge bg-danger ms-2" title="{{ sync_msg }}">{{ t(request, "tasks.sync_failed") }}</span>
+            {% elif sync_status == 'success' %}
+            <span class="badge bg-success ms-2">{{ t(request, "tasks.sync_ok") }}</span>
+            {% endif %}
+        </p>
+        <p class="text-muted small mb-0 mt-1">{{ t(request, "tasks.server_hint") }}</p>
+        <div class="alert alert-secondary small mt-2 mb-0 py-2" id="timezone-storage-note">
+            {{ t(request, "tasks.timezone_note") }}
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for task in tasks %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between align-items-center">
+                    {{ task.date }}
+                    {% if task.progress >= 100 %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    {% endif %}
+                </h5>
+                <p class="card-text text-muted small">{{ t(request, "tasks.total_segments", count=task.total_segments, minutes=task.duration_minutes) }}</p>
+                
+                <div class="progress mb-3" style="height: 10px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ task.progress }}%;" 
+                         aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                <div class="d-flex justify-content-between text-muted small mb-3">
+                    <span>{{ t(request, "tasks.labeled") }}: {{ task.labeled_count }}</span>
+                    <span>{{ t(request, "tasks.coverage") }}: {{ task.progress }}%</span>
+                </div>
+
+                <div class="mb-3 small">
+                    <span class="text-muted me-2">{{ t(request, "tasks.prelabel_status") }}</span>
+                    {% if task.prelabel_status == 'done' %}
+                    <span class="badge bg-success">{{ t(request, "status.done") }}</span>
+                    {% elif task.prelabel_status == 'running' %}
+                    <span class="badge bg-primary">{{ t(request, "status.running") }}</span>
+                    {% elif task.prelabel_status == 'pending' %}
+                    <span class="badge bg-secondary">{{ t(request, "status.pending") }}</span>
+                    {% elif task.prelabel_status == 'failed' %}
+                    <span class="badge bg-danger">{{ t(request, "status.failed") }}</span>
+                    {% else %}
+                    <span class="badge bg-light text-dark border">{{ t(request, "status.not_run") }}</span>
+                    {% endif %}
+                </div>
+                
+                <a href="/tasks/{{ task.date }}" class="btn btn-primary w-100">{{ t(request, "tasks.enter_workspace") }}</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5 text-muted">
+        <h4>{{ t(request, "tasks.no_data") }}</h4>
+        <p>{{ t(request, "tasks.no_data_hint") }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const noteEl = document.getElementById('timezone-storage-note');
+        if (!noteEl) return;
+        const isEn = (window.__LANG || 'zh-CN') === 'en';
+
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+        const offsetMinutes = -new Date().getTimezoneOffset(); // UTC+8 => 480
+
+        const toHHMM = (mins) => {
+            const m = ((mins % 1440) + 1440) % 1440;
+            const h = String(Math.floor(m / 60)).padStart(2, '0');
+            const mm = String(m % 60).padStart(2, '0');
+            return `${h}:${mm}`;
+        };
+
+        if (offsetMinutes === 0) {
+            noteEl.textContent = isEn
+                ? `Audio is stored by UTC date directories. Browser timezone is ${tz} (UTC+00:00), so local and directory dates are the same. Time values are shown in browser timezone.`
+                : `接收音频按照 UTC 时间存放到每日目录。当前浏览器时区为 ${tz}（UTC+00:00），本地与目录日期一致；每条时间已自动按浏览器时区显示。`;
+            return;
+        }
+
+        let cutoff;
+        let beforeDay;
+        let afterDay;
+        if (offsetMinutes > 0) {
+            cutoff = offsetMinutes;
+            beforeDay = isEn ? 'previous day' : '前一天';
+            afterDay = isEn ? 'same day' : '当天';
+        } else {
+            cutoff = 1440 + offsetMinutes;
+            beforeDay = isEn ? 'same day' : '当天';
+            afterDay = isEn ? 'next day' : '后一天';
+        }
+
+        noteEl.textContent = isEn
+            ? `Audio is stored by UTC date directories. Browser timezone is ${tz}. Data before local ${toHHMM(cutoff)} is stored in the ${beforeDay} directory, and data from ${toHHMM(cutoff)} (inclusive) is stored in the ${afterDay} directory. Time values are shown in browser timezone.`
+            : `接收音频按照 UTC 时间存放到每个日期目录。当前浏览器时区为 ${tz}，本地 ${toHHMM(cutoff)} 前的数据会保存到 ${beforeDay} 目录，${toHHMM(cutoff)}（含）后的数据会保存到 ${afterDay} 目录；每条时间已自动按浏览器时区正确显示。`;
+    });
+</script>
+{% endblock %}

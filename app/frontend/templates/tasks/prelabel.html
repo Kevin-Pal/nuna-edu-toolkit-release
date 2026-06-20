@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t(request, "prelabel.title") }} {{ day_id }} - Nuna Audio Lab{% endblock %}
+
+{% block content %}
+<div class="prelabel-hero card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+            <div>
+                <a href="/tasks/{{ day_id }}" class="btn btn-outline-secondary btn-sm mb-3"><i class="bi bi-arrow-left"></i> {{ t(request, "prelabel.back_workspace") }}</a>
+                <h3 class="mb-1">{{ t(request, "prelabel.console") }}</h3>
+                <p class="text-muted mb-0">{{ t(request, "prelabel.intro", day_id=day_id) }}</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small">{{ t(request, "prelabel.status") }}</span>
+                <span id="prelabel-status-badge"
+                    class="badge {% if job and job.status == 'done' %}bg-success{% elif job and job.status == 'running' %}bg-primary{% elif job and job.status == 'pending' %}bg-secondary{% elif job and job.status == 'failed' %}bg-danger{% else %}bg-light text-dark border{% endif %}">
+                    {% if job and job.status == 'done' %}{{ t(request, "status.done") }}{% elif job and job.status == 'running' %}{{ t(request, "status.running") }}{% elif job and job.status == 'pending' %}{{ t(request, "status.pending") }}{% elif job and job.status == 'failed' %}{{ t(request, "status.failed") }}{% else %}{{ t(request, "status.not_run") }}{% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="prelabel-meta-grid mt-4">
+            <div class="meta-item">
+                <div class="meta-label">Job ID</div>
+                <div class="meta-value" id="prelabel-job-id">{% if job %}#{{ job.id }}{% else %}-{% endif %}</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Pipeline</div>
+                <div class="meta-value" id="prelabel-pipeline">{% if job %}{{ job.pipeline_version }}{% else %}-{% endif %}</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">{{ t(request, "prelabel.start_time") }}</div>
+                <div class="meta-value" id="prelabel-start-time">{% if job and job.started_at %}<span class="local-time" data-ts="{{ job.started_at }}" data-format="full"></span>{% else %}-{% endif %}</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">{{ t(request, "prelabel.finish_time") }}</div>
+                <div class="meta-value" id="prelabel-finish-time">{% if job and job.finished_at %}<span class="local-time" data-ts="{{ job.finished_at }}" data-format="full"></span>{% else %}-{% endif %}</div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-4 flex-wrap">
+            <button class="btn btn-warning" id="run-prelabel-btn"><i class="bi bi-stars me-1"></i> {{ t(request, "prelabel.run_beta") }}</button>
+            <button class="btn btn-outline-warning" id="rerun-failed-btn"><i class="bi bi-arrow-repeat me-1"></i> {{ t(request, "prelabel.rerun_failed") }}</button>
+            <button class="btn btn-outline-secondary" id="refresh-prelabel-btn"><i class="bi bi-arrow-clockwise me-1"></i> {{ t(request, "prelabel.refresh") }}</button>
+            <span class="small text-danger" id="prelabel-error-msg">{% if job and job.error_log %}{{ job.error_log }}{% endif %}</span>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center mt-3 flex-wrap">
+            <span class="badge {% if allow_repeat %}bg-success{% else %}bg-secondary{% endif %}">
+                {% if allow_repeat %}{{ t(request, "prelabel.allow_repeat") }}{% else %}{{ t(request, "prelabel.deny_repeat") }}{% endif %}
+            </span>
+            {% if latest_job and selected_job_id and latest_job.id != selected_job_id %}
+            <a class="btn btn-sm btn-outline-primary" href="/tasks/{{ day_id }}/prelabel">{{ t(request, "prelabel.switch_latest", id=latest_job.id) }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0">{{ t(request, "prelabel.history") }}</h6>
+            <span class="small text-muted">{{ t(request, "prelabel.history_hint") }}</span>
+        </div>
+        {% if jobs_history %}
+        <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Job</th>
+                        <th>{{ t(request, "prelabel.status") }}</th>
+                        <th>{{ t(request, "prelabel.created_time") }}</th>
+                        <th>{{ t(request, "prelabel.finished_time") }}</th>
+                        <th>{{ t(request, "prelabel.action") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for j in jobs_history %}
+                    <tr {% if selected_job_id == j.id %}class="table-primary"{% endif %}>
+                        <td>#{{ j.id }}</td>
+                        <td>
+                            {% if j.status == 'done' %}<span class="badge bg-success">{{ t(request, "status.done") }}</span>
+                            {% elif j.status == 'running' %}<span class="badge bg-primary">{{ t(request, "status.running") }}</span>
+                            {% elif j.status == 'pending' %}<span class="badge bg-secondary">{{ t(request, "status.pending") }}</span>
+                            {% elif j.status == 'failed' %}<span class="badge bg-danger">{{ t(request, "status.failed") }}</span>
+                            {% else %}<span class="badge bg-light text-dark border">{{ j.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="local-time" data-ts="{{ j.created_at }}" data-format="full"></span></td>
+                        <td>{% if j.finished_at %}<span class="local-time" data-ts="{{ j.finished_at }}" data-format="full"></span>{% else %}-{% endif %}</td>
+                        <td><a class="btn btn-sm btn-outline-secondary" href="/tasks/{{ day_id }}/prelabel?job_id={{ j.id }}">{{ t(request, "prelabel.view") }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">{{ t(request, "prelabel.no_history") }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<ul class="nav nav-tabs" id="prelabel-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="asr-tab" data-bs-toggle="tab" data-bs-target="#asr-pane" type="button" role="tab">{{ t(request, "prelabel.asr_tab") }}</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sed-tab" data-bs-toggle="tab" data-bs-target="#sed-pane" type="button" role="tab">{{ t(request, "prelabel.sed_tab") }}</button>
+    </li>
+</ul>
+
+<div class="tab-content border border-top-0 mb-4" id="prelabel-tab-content">
+    <div class="tab-pane fade show active" id="asr-pane" role="tabpanel">
+    <div class="card border-0">
+    <div class="card-body p-3">
+        {% if asr_results %}
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <button id="select-all-audio-btn" class="btn btn-sm btn-outline-primary" type="button">{{ t(request, "prelabel.select_all") }}</button>
+                <button id="select-none-audio-btn" class="btn btn-sm btn-outline-secondary" type="button">{{ t(request, "prelabel.select_none") }}</button>
+                <button id="export-selected-btn" class="btn btn-sm btn-success" type="button">
+                    <i class="bi bi-download me-1"></i>{{ t(request, "prelabel.export_selected") }}
+                </button>
+            </div>
+            <div class="small text-muted">
+                {{ t(request, "prelabel.selected") }} <span id="selected-audio-count">0</span> / {{ asr_results|length }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div class="small text-muted">
+                {{ t(request, "prelabel.low_speech_thres") }}: {{ asr_vad_thres }}
+                {% if low_speech_count %}
+                · {{ t(request, "prelabel.low_speech_folded", count=low_speech_count) }}
+                {% endif %}
+            </div>
+            <button id="toggle-low-speech-btn" class="btn btn-sm btn-outline-secondary" type="button">{{ t(request, "prelabel.expand_all_low") }}</button>
+        </div>
+        <div class="list-group">
+            {% for item in asr_results %}
+            {% set norm = item.content.normalized if item.content and item.content.normalized else {} %}
+            {% set usage = item.content.usage if item.content and item.content.usage else {} %}
+            <div class="list-group-item {% if item.low_speech %}asr-low-speech-item{% endif %}">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <input
+                            class="form-check-input prelabel-audio-checkbox"
+                            type="checkbox"
+                            data-audio-id="{{ item.audio_id }}"
+                            id="audio-export-{{ item.audio_id }}"
+                        >
+                        <label class="mb-0" for="audio-export-{{ item.audio_id }}">
+                            <span class="badge bg-light text-dark border">{{ t(request, "prelabel.segment") }} #{{ item.audio_id }}</span>
+                        </label>
+                    </div>
+                    <div class="small text-muted d-flex gap-3 flex-wrap">
+                        <span>{{ t(request, "prelabel.audio_time") }}: <span class="local-time" data-ts="{{ item.audio_start_ts or item.minute_ts }}" data-format="full"></span></span>
+                        <span>{{ t(request, "prelabel.duration") }}: {{ item.duration_sec or 60 }}s</span>
+                    </div>
+                </div>
+                {% if item.low_speech %}
+                <div class="small text-muted mt-2">
+                    {{ t(request, "prelabel.low_speech_item", units=item.asr_units, thres=item.asr_vad_thres, unit=(t(request, 'prelabel.unit_word') if item.asr_unit_type == 'word' else t(request, 'prelabel.unit_char'))) }}
+                </div>
+                <button class="btn btn-sm btn-outline-secondary mt-2 low-speech-expand-btn" type="button">{{ t(request, "prelabel.expand_one") }}</button>
+                <div class="low-speech-content d-none">
+                {% else %}
+                <div class="low-speech-content">
+                {% endif %}
+                <div class="mt-2">
+                    <audio controls preload="none" class="w-100">
+                        <source src="/audio/{{ item.audio_id }}/stream">
+                    </audio>
+                </div>
+                <div class="mt-2">{{ item.asr_text or norm.text or item.content.text or item.content.raw or '-' }}</div>
+                <div class="small text-muted mt-2 d-flex flex-wrap gap-3">
+                    <span>provider: {{ item.content.provider or '-' }}</span>
+                    <span>language: {{ norm.language or '-' }}</span>
+                    <span>emotion: {{ norm.emotion or '-' }}</span>
+                    <span>seconds: {{ usage.seconds or '-' }}</span>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">{{ t(request, "prelabel.no_asr") }}</p>
+        {% endif %}
+    </div>
+</div>
+    </div>
+
+    <div class="tab-pane fade" id="sed-pane" role="tabpanel">
+        <div class="card border-0">
+            <div class="card-body p-3">
+                {% if sed_results %}
+                <div class="list-group">
+                    {% for item in sed_results %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <span class="badge bg-light text-dark border">{{ t(request, "prelabel.segment") }} #{{ item.audio_id }}</span>
+                            <span class="small text-muted">{{ t(request, "prelabel.time") }}: <span class="local-time" data-ts="{{ item.audio_start_ts or item.minute_ts }}" data-format="full"></span></span>
+                        </div>
+                        <pre class="small mt-2 mb-0">{{ item.content | tojson(indent=2) }}</pre>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">{{ t(request, "prelabel.sed_not_enabled") }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function() {
+        const I18N = window.__I18N || {};
+        const tr = (key, fallback) => I18N[key] || fallback || key;
+        const initialJobId = "{{ job.id if job else '' }}";
+        const initialJobStatus = "{{ job.status if job else '' }}";
+        let currentJobId = initialJobId ? parseInt(initialJobId, 10) : null;
+        const runBtn = document.getElementById('run-prelabel-btn');
+        const rerunFailedBtn = document.getElementById('rerun-failed-btn');
+        const refreshBtn = document.getElementById('refresh-prelabel-btn');
+        const statusBadge = document.getElementById('prelabel-status-badge');
+        const jobIdEl = document.getElementById('prelabel-job-id');
+        const pipelineEl = document.getElementById('prelabel-pipeline');
+        const startEl = document.getElementById('prelabel-start-time');
+        const finishEl = document.getElementById('prelabel-finish-time');
+        const errorEl = document.getElementById('prelabel-error-msg');
+
+        function formatLocal(ts) {
+            if (!ts) return '-';
+            const d = new Date(ts * 1000);
+            return d.toLocaleString([], {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            });
+        }
+
+        function applyStatus(status) {
+            statusBadge.className = 'badge';
+            if (status === 'done') {
+                statusBadge.classList.add('bg-success');
+                statusBadge.textContent = tr('status.done', 'Done');
+                runBtn.disabled = false;
+                rerunFailedBtn.disabled = false;
+                runBtn.innerHTML = `<i class="bi bi-stars me-1"></i> ${tr('prelabel.run_beta', 'Prelabel (Beta)')}`;
+                rerunFailedBtn.innerHTML = `<i class="bi bi-arrow-repeat me-1"></i> ${tr('prelabel.rerun_failed', 'Rerun Failed Minutes')}`;
+                return;
+            }
+            if (status === 'running') {
+                statusBadge.classList.add('bg-primary');
+                statusBadge.textContent = tr('status.running', 'Running');
+                runBtn.disabled = true;
+                rerunFailedBtn.disabled = true;
+                runBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('status.running', 'Running')}`;
+                rerunFailedBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('status.running', 'Running')}`;
+                return;
+            }
+            if (status === 'pending') {
+                statusBadge.classList.add('bg-secondary');
+                statusBadge.textContent = tr('status.pending', 'Pending');
+                runBtn.disabled = true;
+                rerunFailedBtn.disabled = true;
+                runBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('status.pending', 'Pending')}`;
+                rerunFailedBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('status.pending', 'Pending')}`;
+                return;
+            }
+            if (status === 'failed') {
+                statusBadge.classList.add('bg-danger');
+                statusBadge.textContent = tr('status.failed', 'Failed');
+                runBtn.disabled = false;
+                rerunFailedBtn.disabled = false;
+                runBtn.innerHTML = `<i class="bi bi-stars me-1"></i> ${tr('prelabel.run_beta', 'Prelabel (Beta)')}`;
+                rerunFailedBtn.innerHTML = `<i class="bi bi-arrow-repeat me-1"></i> ${tr('prelabel.rerun_failed', 'Rerun Failed Minutes')}`;
+                return;
+            }
+            statusBadge.classList.add('bg-light', 'text-dark', 'border');
+            statusBadge.textContent = tr('status.not_run', 'Not run');
+            runBtn.disabled = false;
+            rerunFailedBtn.disabled = false;
+            runBtn.innerHTML = `<i class="bi bi-stars me-1"></i> ${tr('prelabel.run_beta', 'Prelabel (Beta)')}`;
+            rerunFailedBtn.innerHTML = `<i class="bi bi-arrow-repeat me-1"></i> ${tr('prelabel.rerun_failed', 'Rerun Failed Minutes')}`;
+        }
+
+        function applyMeta(data) {
+            jobIdEl.textContent = data.id ? `#${data.id}` : '-';
+            pipelineEl.textContent = data.pipeline_version || '-';
+            startEl.textContent = formatLocal(data.started_at);
+            finishEl.textContent = formatLocal(data.finished_at);
+            errorEl.textContent = data.error_log || '';
+        }
+
+        async function fetchStatus(jobId, reloadOnDone) {
+            const resp = await fetch(`/api/prelabel/status/${jobId}`);
+            if (!resp.ok) throw new Error(tr('prelabel.query_failed', 'Failed to query status'));
+            const data = await resp.json();
+            applyStatus(data.status);
+            applyMeta(data);
+            if (reloadOnDone && (data.status === 'done' || data.status === 'failed')) {
+                window.location.reload();
+            }
+            return data;
+        }
+
+        async function pollStatus(jobId) {
+            for (let i = 0; i < 120; i++) {
+                const data = await fetchStatus(jobId, false);
+                if (data.status === 'done' || data.status === 'failed') {
+                    window.location.reload();
+                    return;
+                }
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            }
+        }
+
+        runBtn.addEventListener('click', async function() {
+            runBtn.disabled = true;
+            runBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('prelabel.triggering', 'Triggering')}`;
+            rerunFailedBtn.disabled = true;
+            errorEl.textContent = '';
+            try {
+                const resp = await fetch('/api/prelabel/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ day_id: '{{ day_id }}', force: true })
+                });
+                const data = await resp.json();
+                if (!resp.ok) {
+                    throw new Error(data.detail || tr('prelabel.trigger_failed', 'Failed to trigger prelabel job'));
+                }
+                currentJobId = data.job_id;
+                applyStatus(data.status || 'pending');
+                jobIdEl.textContent = `#${currentJobId}`;
+                await pollStatus(currentJobId);
+            } catch (e) {
+                applyStatus('failed');
+                errorEl.textContent = e.message || tr('prelabel.trigger_failed', 'Failed to trigger prelabel job');
+            }
+        });
+
+        rerunFailedBtn.addEventListener('click', async function() {
+            rerunFailedBtn.disabled = true;
+            rerunFailedBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('prelabel.triggering', 'Triggering')}`;
+            runBtn.disabled = true;
+            errorEl.textContent = '';
+            try {
+                const resp = await fetch('/api/prelabel/rerun-failed', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ day_id: '{{ day_id }}' })
+                });
+                const data = await resp.json();
+                if (!resp.ok) {
+                    throw new Error(data.detail || tr('prelabel.rerun_trigger_failed', 'Failed to trigger rerun for failed minutes'));
+                }
+                currentJobId = data.job_id;
+                applyStatus(data.status || 'pending');
+                jobIdEl.textContent = `#${currentJobId}`;
+                await pollStatus(currentJobId);
+            } catch (e) {
+                applyStatus('failed');
+                errorEl.textContent = e.message || tr('prelabel.rerun_trigger_failed', 'Failed to trigger rerun for failed minutes');
+            }
+        });
+
+        refreshBtn.addEventListener('click', async function() {
+            if (!currentJobId) return;
+            try {
+                await fetchStatus(currentJobId, false);
+            } catch (e) {
+                errorEl.textContent = e.message || tr('prelabel.refresh_failed', 'Failed to refresh status');
+            }
+        });
+
+        if (currentJobId && (initialJobStatus === 'running' || initialJobStatus === 'pending')) {
+            pollStatus(currentJobId).catch(() => {});
+        }
+
+        const toggleLowSpeechBtn = document.getElementById('toggle-low-speech-btn');
+        let lowSpeechExpanded = false;
+
+        function applyLowSpeechExpanded(expanded) {
+            const lowItems = document.querySelectorAll('.asr-low-speech-item');
+            lowItems.forEach(item => {
+                const content = item.querySelector('.low-speech-content');
+                const btn = item.querySelector('.low-speech-expand-btn');
+                if (!content) return;
+                if (expanded) {
+                    content.classList.remove('d-none');
+                    if (btn) btn.classList.add('d-none');
+                } else {
+                    content.classList.add('d-none');
+                    if (btn) btn.classList.remove('d-none');
+                }
+            });
+            if (toggleLowSpeechBtn) {
+                toggleLowSpeechBtn.textContent = expanded
+                    ? tr('prelabel.collapse_all_low', 'Collapse all low-speech results')
+                    : tr('prelabel.expand_all_low', 'Expand all low-speech results');
+            }
+            lowSpeechExpanded = expanded;
+        }
+
+        document.querySelectorAll('.low-speech-expand-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const item = btn.closest('.asr-low-speech-item');
+                if (!item) return;
+                const content = item.querySelector('.low-speech-content');
+                if (!content) return;
+                content.classList.remove('d-none');
+                btn.classList.add('d-none');
+            });
+        });
+
+        if (toggleLowSpeechBtn) {
+            toggleLowSpeechBtn.addEventListener('click', function() {
+                applyLowSpeechExpanded(!lowSpeechExpanded);
+            });
+        }
+
+        const audioCheckboxes = Array.from(document.querySelectorAll('.prelabel-audio-checkbox'));
+        const selectAllBtn = document.getElementById('select-all-audio-btn');
+        const selectNoneBtn = document.getElementById('select-none-audio-btn');
+        const exportBtn = document.getElementById('export-selected-btn');
+        const selectedCountEl = document.getElementById('selected-audio-count');
+
+        function isFoldedLowSpeechCheckbox(cb) {
+            const item = cb.closest('.asr-low-speech-item');
+            if (!item) return false;
+            const content = item.querySelector('.low-speech-content');
+            return !!(content && content.classList.contains('d-none'));
+        }
+
+        function getSelectedAudioIds() {
+            const selected = [];
+            audioCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    selected.push(parseInt(cb.dataset.audioId, 10));
+                }
+            });
+            return selected;
+        }
+
+        function refreshSelectedCount() {
+            if (!selectedCountEl) return;
+            selectedCountEl.textContent = String(getSelectedAudioIds().length);
+        }
+
+        audioCheckboxes.forEach(cb => {
+            cb.addEventListener('change', refreshSelectedCount);
+        });
+
+        if (selectAllBtn) {
+            selectAllBtn.addEventListener('click', function() {
+                audioCheckboxes.forEach(cb => {
+                    cb.checked = !isFoldedLowSpeechCheckbox(cb);
+                });
+                refreshSelectedCount();
+            });
+        }
+
+        if (selectNoneBtn) {
+            selectNoneBtn.addEventListener('click', function() {
+                audioCheckboxes.forEach(cb => {
+                    cb.checked = false;
+                });
+                refreshSelectedCount();
+            });
+        }
+
+        if (exportBtn) {
+            exportBtn.addEventListener('click', async function() {
+                const selectedAudioIds = getSelectedAudioIds();
+                if (!selectedAudioIds.length) {
+                    alert(tr('prelabel.choose_audio', 'Please select audio to export first'));
+                    return;
+                }
+
+                const originalHtml = exportBtn.innerHTML;
+                exportBtn.disabled = true;
+                exportBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>${tr('prelabel.exporting', 'Exporting')}`;
+                try {
+                    const payload = {
+                        day_id: '{{ day_id }}',
+                        job_id: '{{ selected_job_id if selected_job_id else "" }}' || null,
+                        audio_ids: selectedAudioIds,
+                    };
+
+                    const resp = await fetch('/api/prelabel/export', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (!resp.ok) {
+                        let errMsg = tr('prelabel.export_failed', 'Export failed');
+                        try {
+                            const errJson = await resp.json();
+                            errMsg = errJson.detail || errMsg;
+                        } catch (_) {}
+                        throw new Error(errMsg);
+                    }
+
+                    const blob = await resp.blob();
+                    const objectUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    const day = '{{ day_id }}';
+                    const jobId = '{{ selected_job_id if selected_job_id else "" }}';
+                    link.href = objectUrl;
+                    link.download = `prelabel_export_${day}${jobId ? `_job${jobId}` : ''}.zip`;
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    window.URL.revokeObjectURL(objectUrl);
+                } catch (e) {
+                    alert(e.message || tr('prelabel.export_failed', 'Export failed'));
+                } finally {
+                    exportBtn.disabled = false;
+                    exportBtn.innerHTML = originalHtml;
+                }
+            });
+        }
+
+        refreshSelectedCount();
+    })();
+</script>
+{% endblock %}

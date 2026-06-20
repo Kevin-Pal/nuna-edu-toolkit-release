@@ -1,0 +1,210 @@
+<!-- Block Create Modal -->
+<div class="modal fade" id="createBlockModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ t(request, "modal.block.title") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/blocks" method="POST" id="createBlockForm">
+                <div class="modal-body">
+                    <!-- Hidden inputs populated by JS -->
+                    <input type="hidden" name="date" id="blockDate">
+                    <input type="hidden" name="start_audio_id" id="blockStartId">
+                    <input type="hidden" name="end_audio_id" id="blockEndId">
+
+                    <div class="alert alert-info py-2" id="blockSelectionInfo">
+                        {{ t(request, "modal.block.selected_zero") }}
+                    </div>
+
+                    <!-- Scene -->
+                    <h6 class="border-bottom pb-2 mb-3">1. 场景 (Scene) - 环境信息</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">形容词 (Adj)</label>
+                            <input type="text" class="form-control" name="scene_adj" placeholder="例：安静的" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">名词 (Noun)</label>
+                            <input type="text" class="form-control" name="scene_noun" placeholder="例：办公室" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">备注 (可选)</label>
+                        <input type="text" class="form-control" name="scene_note">
+                    </div>
+
+                    <!-- Event -->
+                    <h6 class="border-bottom pb-2 mb-3 mt-4">2. 块事件 (Event) - 只有用户行为</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">副词 (Adv)</label>
+                            <input type="text" class="form-control" name="be_adv" placeholder="例：认真地" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">动词/动宾 (Verb)</label>
+                            <input type="text" class="form-control" name="be_verb" placeholder="例：写代码" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">备注 (可选)</label>
+                        <input type="text" class="form-control" name="be_note">
+                    </div>
+
+                    <!-- Emotion (V-A Grid) -->
+                    <h6 class="border-bottom pb-2 mb-3 mt-4">3. 情绪 (Emotion)</h6>
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-bordered text-center w-auto va-grid-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="bg-light">V \ A</th>
+                                    <th>Low<br><small class="text-muted">困倦/松弛</small></th>
+                                    <th>Mid<br><small class="text-muted">平静</small></th>
+                                    <th>High<br><small class="text-muted">激活/紧张</small></th>
+                                    <th>Very High<br><small class="text-muted">极高</small></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>High<br><small class="text-muted">愉快</small></th>
+                                    <td title="轻松"><input type="radio" name="va_grid" value="high,low" required> <div class="small text-muted">轻松</div></td>
+                                    <td title="满足"><input type="radio" name="va_grid" value="high,mid"> <div class="small text-muted">满足</div></td>
+                                    <td title="喜悦"><input type="radio" name="va_grid" value="high,high"> <div class="small text-muted">喜悦</div></td>
+                                    <td title="兴奋"><input type="radio" name="va_grid" value="high,very_high"> <div class="small text-muted">兴奋</div></td>
+                                </tr>
+                                <tr>
+                                    <th>Mid<br><small class="text-muted">中性</small></th>
+                                    <td title="宁静"><input type="radio" name="va_grid" value="mid,low"> <div class="small text-muted">宁静</div></td>
+                                    <td title="平和"><input type="radio" name="va_grid" value="mid,mid"> <div class="small text-muted">平和</div></td>
+                                    <td title="专注"><input type="radio" name="va_grid" value="mid,high"> <div class="small text-muted">专注</div></td>
+                                    <td title="惊奇"><input type="radio" name="va_grid" value="mid,very_high"> <div class="small text-muted">惊奇</div></td>
+                                </tr>
+                                <tr>
+                                    <th>Low<br><small class="text-muted">不愉快</small></th>
+                                    <td title="无聊"><input type="radio" name="va_grid" value="low,low"> <div class="small text-muted">无聊</div></td>
+                                    <td title="低落"><input type="radio" name="va_grid" value="low,mid"> <div class="small text-muted">低落</div></td>
+                                    <td title="紧绷"><input type="radio" name="va_grid" value="low,high"> <div class="small text-muted">紧绷</div></td>
+                                    <td title="不安"><input type="radio" name="va_grid" value="low,very_high"> <div class="small text-muted">不安</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center text-muted small">
+                        点击对应格子可选择情绪（Valence–Arousal 对照）。
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ t(request, "modal.cancel") }}</button>
+                    <button type="submit" class="btn btn-primary">{{ t(request, "modal.create") }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        <!-- Point Create Modal -->
+        <div class="modal fade" id="createPointModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">创建点标注 (Point) - <span id="pointDateLabel"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="/points" method="POST" id="createPointForm">
+                        <div class="modal-body">
+                            <input type="hidden" name="block_id" id="pointBlockId">
+                            <input type="hidden" name="start_audio_id" id="pointStartId">
+                            <input type="hidden" name="end_audio_id" id="pointEndId">
+
+                            <div class="alert alert-info py-2" id="pointSelectionInfo">请选择连续片段后创建点标注</div>
+
+                            <h6 class="border-bottom pb-2 mb-3">1. 点状事件类型</h6>
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pe_type" id="peTypeEnv" value="env_fluctuation" required>
+                                    <label class="form-check-label" for="peTypeEnv">环境波动</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pe_type" id="peTypeAct" value="personal_action">
+                                    <label class="form-check-label" for="peTypeAct">个人行动</label>
+                                </div>
+                            </div>
+
+                            <div id="env-fields" class="mb-3">
+                                <label class="form-label">环境波动</label>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="env_subject" placeholder="主语，如：玻璃杯">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="env_predicate" placeholder="谓语，如：掉到地上">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="act-fields" class="mb-3">
+                                <label class="form-label">个人行动</label>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="act_adv" placeholder="副词，如：紧张地">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="act_verb" placeholder="动词，如：回答问题">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">备注 (可选)</label>
+                                <input type="text" class="form-control" name="pe_note">
+                            </div>
+
+                            <h6 class="border-bottom pb-2 mb-3 mt-4">2. 情绪 (Emotion)</h6>
+                            <div class="d-flex justify-content-center">
+                                <table class="table table-bordered text-center w-auto va-grid-table align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-light">V \ A</th>
+                                            <th>Low<br><small class="text-muted">困倦/松弛</small></th>
+                                            <th>Mid<br><small class="text-muted">平静</small></th>
+                                            <th>High<br><small class="text-muted">激活/紧张</small></th>
+                                            <th>Very High<br><small class="text-muted">极高</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>High<br><small class="text-muted">愉快</small></th>
+                                            <td title="轻松"><input type="radio" name="va_grid" value="high,low" required> <div class="small text-muted">轻松</div></td>
+                                            <td title="满足"><input type="radio" name="va_grid" value="high,mid"> <div class="small text-muted">满足</div></td>
+                                            <td title="喜悦"><input type="radio" name="va_grid" value="high,high"> <div class="small text-muted">喜悦</div></td>
+                                            <td title="兴奋"><input type="radio" name="va_grid" value="high,very_high"> <div class="small text-muted">兴奋</div></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mid<br><small class="text-muted">中性</small></th>
+                                            <td title="宁静"><input type="radio" name="va_grid" value="mid,low"> <div class="small text-muted">宁静</div></td>
+                                            <td title="平和"><input type="radio" name="va_grid" value="mid,mid"> <div class="small text-muted">平和</div></td>
+                                            <td title="专注"><input type="radio" name="va_grid" value="mid,high"> <div class="small text-muted">专注</div></td>
+                                            <td title="惊奇"><input type="radio" name="va_grid" value="mid,very_high"> <div class="small text-muted">惊奇</div></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Low<br><small class="text-muted">不愉快</small></th>
+                                            <td title="无聊"><input type="radio" name="va_grid" value="low,low"> <div class="small text-muted">无聊</div></td>
+                                            <td title="低落"><input type="radio" name="va_grid" value="low,mid"> <div class="small text-muted">低落</div></td>
+                                            <td title="紧绷"><input type="radio" name="va_grid" value="low,high"> <div class="small text-muted">紧绷</div></td>
+                                            <td title="不安"><input type="radio" name="va_grid" value="low,very_high"> <div class="small text-muted">不安</div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center text-muted small">
+                                点击对应格子可选择情绪（Valence–Arousal 对照）。
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">创建点标注</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

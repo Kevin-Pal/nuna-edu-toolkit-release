@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t(request, "auth.register.title") }} - Nuna Audio Lab{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">{{ t(request, "auth.register.title") }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/auth/register">
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">{{ t(request, "auth.register.user") }}</label>
+                        <input type="text" class="form-control" id="userId" name="userId" required>
+                        <div class="form-text">{{ t(request, "auth.register.user_hint") }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{ t(request, "auth.register.email") }}</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ t(request, "auth.register.password") }}</label>
+                        <input type="password" class="form-control" id="password" name="password" required minlength="8">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">{{ t(request, "auth.register.confirm_password") }}</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">{{ t(request, "auth.register.submit") }}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small>{{ t(request, "auth.register.have_account") }} <a href="/auth/login">{{ t(request, "auth.register.direct_login") }}</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

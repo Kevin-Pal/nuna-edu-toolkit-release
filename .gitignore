@@ -1,0 +1,46 @@
+# --- Runtime data (keep directory structure via .gitkeep, ignore contents) ---
+runtime/data/audio/*
+!runtime/data/audio/.gitkeep
+runtime/data/db/*
+!runtime/data/db/.gitkeep
+runtime/logs/*
+!runtime/logs/.gitkeep
+runtime/snapshots/*
+!runtime/snapshots/.gitkeep
+
+# --- Secrets / environment: ship ONLY *.env.example, never real env files ---
+.env
+*.env
+!*.env.example
+
+# --- Databases ---
+*.db
+*.sqlite
+
+# --- Audio & uploads (never commit real recordings / PII) ---
+*.wav
+*.mp3
+*.flac
+uploads/
+
+# --- Python / Node junk ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Repo-private: internal source & brief, do NOT publish ---
+/ref/
+/Prompt.md
+/.claude/
+/RELEASE_REPORT.md
+
+# --- PPT build artifacts (keep the .pptx, drop render scratch) ---
+/promo/*.pdf
+/promo/slide-*.jpg

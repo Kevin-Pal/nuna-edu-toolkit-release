@@ -1,0 +1,27 @@
+services:
+  app:
+    image: nuna_app_image
+    build: ../app
+    pull_policy: never
+    container_name: nuna_app
+    ports:
+      - "${APP_PORT}:8000"
+    volumes:
+      - ../runtime/data:/runtime/data
+    env_file:
+      - ../runtime/env/app.env
+    restart: unless-stopped
+
+  receiver:
+    image: nuna_app_image
+    build: ../app
+    pull_policy: never
+    container_name: nuna_receiver
+    command: ["uvicorn", "backend.receiver_main:app", "--host", "0.0.0.0", "--port", "9000"]
+    ports:
+      - "${DATA_PORT}:9000"
+    volumes:
+      - ../runtime/data:/runtime/data
+    env_file:
+      - ../runtime/env/app.env
+    restart: unless-stopped

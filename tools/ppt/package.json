@@ -1,0 +1,12 @@
+{
+  "name": "nuna-ppt-builder",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Builds the one-page Nuna-Edu-Toolkit promo slide for the NunaPin MobiSys '26 deck.",
+  "scripts": {
+    "build": "node build_ppt.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

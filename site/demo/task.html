@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace 2026-03-18 — Nuna Audio Lab (Demo)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/demo.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="demo-banner">
+    <span><i class="bi bi-info-circle"></i> <strong>Demo mode</strong> — data is not saved;
+    <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">self-host</a> for the full experience.</span>
+    <a class="demo-banner-home" href="../index.html"><i class="bi bi-arrow-left"></i> Project site</a>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="tasks.html">Nuna Audio Lab <span class="demo-badge">DEMO</span></a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="tasks.html">Tasks</a></li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown me-2">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Language</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#" data-demo-noop="Language switch is cosmetic in the demo.">简体中文</a></li>
+                    <li><a class="dropdown-item" href="#" data-demo-noop="Language switch is cosmetic in the demo.">English</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">demo-user</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="../index.html">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4 sticky-top bg-light py-2" style="z-index: 1020;">
+    <div>
+        <a href="tasks.html" class="btn btn-outline-secondary me-2"><i class="bi bi-arrow-left"></i> Back</a>
+        <span class="h4 align-middle">2026-03-18</span>
+        <span class="badge bg-secondary ms-2 align-middle">12 segments</span>
+    </div>
+    <div>
+        <a href="prelabel.html" class="btn btn-outline-warning btn-sm prelabel-entry-btn" title="AI pre-label (Beta)"><i class="bi bi-stars"></i></a>
+        <div class="btn-group">
+            <button class="btn btn-outline-dark btn-sm active" data-filter="all" id="filter-all">All</button>
+            <button class="btn btn-outline-dark btn-sm" data-filter="unlabeled" id="filter-unlabeled">Unlabeled only</button>
+        </div>
+        <div class="btn-group ms-2">
+            <button class="btn btn-outline-secondary btn-sm" id="expand-all">Expand all</button>
+            <button class="btn btn-outline-secondary btn-sm" id="collapse-all">Collapse all</button>
+        </div>
+    </div>
+</div>
+
+<div class="accordion" id="hourAccordion">
+    <div class="alert alert-info mb-3">
+        Tip: select continuous 1-minute segments about a single event, then click <strong>Create Block</strong> to annotate scene, behavior and emotion. Click a labeled Block badge to add finer Point annotations.
+    </div>
+
+    <!-- Hour 11:00 -->
+    <div class="card mb-2 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#hour-h0_11" aria-expanded="true">
+                    <strong>11:00</strong>
+                </button>
+                <span class="badge bg-light text-dark border ms-2">12 minutes</span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input hour-selector" type="checkbox" data-hour="h0_11">
+                <label class="form-check-label text-muted small">Select hour</label>
+            </div>
+        </div>
+        <div id="hour-h0_11" class="collapse hour-collapse show" data-bs-parent="#hourAccordion">
+            <div class="accordion" id="quarter-accordion-h0_11">
+
+                <!-- Quarter 11:00-11:15 -->
+                <div class="card border-0 border-top">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-sm btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#hour-h0_11-q0" aria-expanded="true">11:00-11:15</button>
+                            <span class="badge bg-secondary ms-2">8 minutes</span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input quarter-selector" type="checkbox" data-hour="h0_11" data-quarter="0">
+                            <label class="form-check-label text-muted small">Select 15 min</label>
+                        </div>
+                    </div>
+                    <div id="hour-h0_11-q0" class="collapse quarter-collapse show" data-bs-parent="#quarter-accordion-h0_11">
+                        <div class="list-group list-group-flush">
+
+                            <!-- 11:00 (labeled) -->
+                            <div class="list-group-item segment-row py-2 status-labeled" id="row-1001" data-label-status="labeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1001" data-id="1001" data-ts="0" data-time="11:00" data-hour="h0_11" data-quarter="0" disabled></div>
+                                    <div class="col-1 text-muted font-monospace small">11:00</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">Okay, let's start the morning stand-up and go over what everyone is working on today.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-1">
+                                            <a href="block.html" class="badge bg-primary text-decoration-none">Block #42: quiet meeting-room &middot; running stand-up</a>
+                                            <span class="badge bg-light text-dark border">mid/high</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:01 (labeled) -->
+                            <div class="list-group-item segment-row py-2 status-labeled" id="row-1002" data-label-status="labeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1002" data-id="1002" data-ts="0" data-time="11:01" data-hour="h0_11" data-quarter="0" disabled></div>
+                                    <div class="col-1 text-muted font-monospace small">11:01</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">So the first item is the data-collection pipeline, then we can talk about the annotation UI.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-1">
+                                            <a href="block.html" class="badge bg-primary text-decoration-none">Block #42: quiet meeting-room &middot; running stand-up</a>
+                                            <span class="badge bg-light text-dark border">mid/high</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:02 -->
+                            <div class="list-group-item segment-row py-2" id="row-1003" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1003" data-id="1003" data-ts="0" data-time="11:02" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:02</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">I think one-minute segments are a good granularity; they make it easy to recall the context later.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:03 -->
+                            <div class="list-group-item segment-row py-2" id="row-1004" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1004" data-id="1004" data-ts="0" data-time="11:03" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:03</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">The ASR preview is really helpful — you can skim the transcript instead of replaying every clip.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:04 -->
+                            <div class="list-group-item segment-row py-2" id="row-1005" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1005" data-id="1005" data-ts="0" data-time="11:04" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:04</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-preview-empty">No ASR text</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:05 -->
+                            <div class="list-group-item segment-row py-2" id="row-1006" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1006" data-id="1006" data-ts="0" data-time="11:05" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:05</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">Let's select the segments about the demo discussion and label them as one block.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:06 -->
+                            <div class="list-group-item segment-row py-2" id="row-1007" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1007" data-id="1007" data-ts="0" data-time="11:06" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:06</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">Could you hand me the charger? The necklace battery is getting low.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:07 -->
+                            <div class="list-group-item segment-row py-2" id="row-1008" data-label-status="unlabeled" data-hour="h0_11" data-quarter="0">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1008" data-id="1008" data-ts="0" data-time="11:07" data-hour="h0_11" data-quarter="0"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:07</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">Great, that wraps the stand-up — let's reconvene after lunch to review progress.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarter 11:15-11:30 -->
+                <div class="card border-0 border-top">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-sm btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#hour-h0_11-q1" aria-expanded="false">11:15-11:30</button>
+                            <span class="badge bg-secondary ms-2">4 minutes</span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input quarter-selector" type="checkbox" data-hour="h0_11" data-quarter="1">
+                            <label class="form-check-label text-muted small">Select 15 min</label>
+                        </div>
+                    </div>
+                    <div id="hour-h0_11-q1" class="collapse quarter-collapse" data-bs-parent="#quarter-accordion-h0_11">
+                        <div class="list-group list-group-flush">
+
+                            <!-- 11:15 -->
+                            <div class="list-group-item segment-row py-2" id="row-1016" data-label-status="unlabeled" data-hour="h0_11" data-quarter="1">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1016" data-id="1016" data-ts="0" data-time="11:15" data-hour="h0_11" data-quarter="1"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:15</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">A glass slipped off the table and shattered — that would be a nice point-level event to annotate.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:16 -->
+                            <div class="list-group-item segment-row py-2" id="row-1017" data-label-status="unlabeled" data-hour="h0_11" data-quarter="1">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1017" data-id="1017" data-ts="0" data-time="11:16" data-hour="h0_11" data-quarter="1"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:16</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">No worries, I'll grab a broom. Let's keep recording for the dataset.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:17 -->
+                            <div class="list-group-item segment-row py-2" id="row-1018" data-label-status="unlabeled" data-hour="h0_11" data-quarter="1">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1018" data-id="1018" data-ts="0" data-time="11:17" data-hour="h0_11" data-quarter="1"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:17</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-preview-empty">No ASR text</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 11:18 -->
+                            <div class="list-group-item segment-row py-2" id="row-1019" data-label-status="unlabeled" data-hour="h0_11" data-quarter="1">
+                                <div class="row align-items-center segment-main-row">
+                                    <div class="col-auto"><input type="checkbox" class="form-check-input segment-selector" name="segment-selector" value="1019" data-id="1019" data-ts="0" data-time="11:18" data-hour="h0_11" data-quarter="1"></div>
+                                    <div class="col-1 text-muted font-monospace small">11:18</div>
+                                    <div class="col-4"><audio controls class="w-100" preload="none"><source></audio></div>
+                                    <div class="col asr-col">
+                                        <div class="asr-preview-box asr-is-collapsed">
+                                            <div class="asr-inline-wrap">
+                                                <div class="asr-preview-text asr-collapsed">Let's wrap up here and check the annotation progress on the Tasks page.</div>
+                                                <button type="button" class="asr-toggle-icon" data-expanded="false" aria-expanded="false" aria-label="Expand ASR text">&#9654;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sticky Action Bar -->
+<div id="sticky-action-bar" class="card bg-dark text-white border-0">
+    <div class="card-body p-3 d-flex justify-content-between align-items-center">
+        <div>
+            <span class="h5 mb-0" id="selected-count">0</span> selected
+            <small class="text-white-50 ms-2" id="selected-range">11:00 - ...</small>
+        </div>
+        <div>
+            <button class="btn btn-outline-light btn-sm me-2" id="clear-selection-btn">Cancel</button>
+            <button class="btn btn-primary" id="create-block-btn" data-bs-toggle="modal" data-bs-target="#createBlockModal">Create Block</button>
+            <button id="delete-button" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Create Block Modal -->
+<div class="modal fade" id="createBlockModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Block Annotation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="#" method="POST" id="createBlockForm">
+                <div class="modal-body">
+                    <input type="hidden" name="date" id="blockDate">
+                    <input type="hidden" name="start_audio_id" id="blockStartId">
+                    <input type="hidden" name="end_audio_id" id="blockEndId">
+
+                    <div class="alert alert-info py-2" id="blockSelectionInfo">No segments selected</div>
+
+                    <h6 class="border-bottom pb-2 mb-3">1. Scene — environment</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Adjective (Adj)</label>
+                            <input type="text" class="form-control" name="scene_adj" placeholder="e.g. quiet" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Noun</label>
+                            <input type="text" class="form-control" name="scene_noun" placeholder="e.g. office" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Note (optional)</label>
+                        <input type="text" class="form-control" name="scene_note">
+                    </div>
+
+                    <h6 class="border-bottom pb-2 mb-3 mt-4">2. Block event — user behavior</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Adverb (Adv)</label>
+                            <input type="text" class="form-control" name="be_adv" placeholder="e.g. attentively" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Verb / verb phrase</label>
+                            <input type="text" class="form-control" name="be_verb" placeholder="e.g. writing code" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Note (optional)</label>
+                        <input type="text" class="form-control" name="be_note">
+                    </div>
+
+                    <h6 class="border-bottom pb-2 mb-3 mt-4">3. Emotion</h6>
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-bordered text-center w-auto va-grid-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="bg-light">V \ A</th>
+                                    <th>Low<br><small class="text-muted">drowsy</small></th>
+                                    <th>Mid<br><small class="text-muted">calm</small></th>
+                                    <th>High<br><small class="text-muted">activated</small></th>
+                                    <th>Very High<br><small class="text-muted">intense</small></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>High<br><small class="text-muted">pleasant</small></th>
+                                    <td><input type="radio" name="va_grid" value="high,low" required><div class="small text-muted">relaxed</div></td>
+                                    <td><input type="radio" name="va_grid" value="high,mid"><div class="small text-muted">content</div></td>
+                                    <td><input type="radio" name="va_grid" value="high,high"><div class="small text-muted">joyful</div></td>
+                                    <td><input type="radio" name="va_grid" value="high,very_high"><div class="small text-muted">excited</div></td>
+                                </tr>
+                                <tr>
+                                    <th>Mid<br><small class="text-muted">neutral</small></th>
+                                    <td><input type="radio" name="va_grid" value="mid,low"><div class="small text-muted">serene</div></td>
+                                    <td><input type="radio" name="va_grid" value="mid,mid"><div class="small text-muted">calm</div></td>
+                                    <td><input type="radio" name="va_grid" value="mid,high"><div class="small text-muted">focused</div></td>
+                                    <td><input type="radio" name="va_grid" value="mid,very_high"><div class="small text-muted">surprised</div></td>
+                                </tr>
+                                <tr>
+                                    <th>Low<br><small class="text-muted">unpleasant</small></th>
+                                    <td><input type="radio" name="va_grid" value="low,low"><div class="small text-muted">bored</div></td>
+                                    <td><input type="radio" name="va_grid" value="low,mid"><div class="small text-muted">down</div></td>
+                                    <td><input type="radio" name="va_grid" value="low,high"><div class="small text-muted">tense</div></td>
+                                    <td><input type="radio" name="va_grid" value="low,very_high"><div class="small text-muted">anxious</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center text-muted small">Click a cell to pick an emotion (Valence–Arousal).</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create annotation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div><!-- /container -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/audio.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/demo.js"></script>
+<script>document.getElementById('blockDate').value = "2026-03-18";</script>
+<script src="assets/js/task_detail.js"></script>
+</body>
+</html>
