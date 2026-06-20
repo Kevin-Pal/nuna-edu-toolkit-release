@@ -35,11 +35,12 @@ node_modules/
 .vscode/
 .idea/
 
-# --- Repo-private: internal source & brief, do NOT publish ---
+# --- Repo-private: internal source, briefs & dev notes, do NOT publish ---
 /ref/
 /Prompt.md
 /.claude/
 /RELEASE_REPORT.md
+/CLAUDE.md
 
 # --- PPT build artifacts (keep the .pptx, drop render scratch) ---
 /promo/*.pdf

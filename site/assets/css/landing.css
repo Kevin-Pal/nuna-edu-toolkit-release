@@ -156,20 +156,10 @@ footer .small a:hover { text-decoration: underline; }
 .device-info .kicker { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--teal); }
 .device-info h2 { margin: 6px 0 8px; font-size: 24px; color: var(--navy); letter-spacing: -.3px; }
 .device-info p { margin: 0 0 18px; color: var(--muted); font-size: 15px; max-width: 640px; }
-.device-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+.device-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Brand-colored buy buttons (Amazon / JD) with a white logo chip */
-.btn-buy { font-weight: 700; padding: 9px 18px 9px 9px; }
-.btn-buy .buy-logo {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 28px; height: 28px; border-radius: 7px; background: #fff; flex: none;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
-}
-.btn-buy .buy-logo img { display: block; }
-.btn-buy-amazon { background: #FFD814; color: #0F1111; border-color: #e8bd0e; }
-.btn-buy-amazon:hover { background: #f5c800; }
-.btn-buy-jd { background: #E1251B; color: #fff; border-color: #c01d14; }
-.btn-buy-jd:hover { background: #c81f16; }
+/* Marketplace buttons: page-consistent outline style with a small brand logo */
+.btn-buy .buy-logo { height: 17px; width: auto; display: block; flex: none; }
 
 @media (max-width: 880px) {
     .steps { grid-template-columns: repeat(2, 1fr); }
