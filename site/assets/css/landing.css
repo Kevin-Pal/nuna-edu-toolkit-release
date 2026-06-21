@@ -98,7 +98,7 @@ section { margin: 46px 0; }
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .feature { padding: 18px; border: 1px solid var(--line); border-radius: 14px; }
 .feature h3 { margin: 0 0 8px; font-size: 16px; color: var(--navy); }
-.feature h3 .ico { font-size: 19px; margin-right: 8px; vertical-align: -2px; }
+.feature h3 .ico { width: 21px; height: 21px; margin-right: 10px; vertical-align: -4px; color: var(--teal); }
 .feature p { margin: 0; font-size: 14px; color: var(--muted); }
 
 /* Get-started cards */
@@ -116,7 +116,8 @@ section { margin: 46px 0; }
 .card2 .qr img { width: 100%; height: 100%; display: block; }
 .card2 .spacer { flex: 1; }
 .card2 .btn { margin-top: 16px; width: 100%; justify-content: center; }
-.demo-emoji { font-size: 54px; line-height: 1; margin: 8px 0 6px; }
+.demo-icon { margin: 6px 0 8px; color: var(--teal); display: flex; justify-content: center; }
+.demo-icon svg { width: 56px; height: 56px; display: block; }
 
 /* ---------- Footer ---------- */
 footer {
