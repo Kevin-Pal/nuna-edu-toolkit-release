@@ -47,14 +47,17 @@ a { color: var(--teal); }
     padding: 54px 44px;
     overflow: hidden;
 }
-.badge-pill {
-    display: inline-block; background: rgba(255,255,255,.14); color: #dff1fb;
-    border: 1px solid rgba(255,255,255,.25);
-    padding: 5px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600; letter-spacing: .3px;
-    margin-bottom: 18px;
+/* Co-brand lockup (ThingX × AIoT Lab) — matches the poster / social card */
+.cobrand {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #fff; border-radius: 999px; padding: 8px 16px; margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(7,23,41,.18);
 }
-a.badge-pill { text-decoration: none; transition: background .15s ease; }
-a.badge-pill:hover { background: rgba(255,255,255,.26); }
+.cobrand a { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+.cobrand img.thingx { height: 20px; width: auto; display: block; }
+.cobrand img.aiot { height: 30px; width: auto; display: block; }
+.cobrand .x { color: #9fb1c0; font-size: 17px; }
+.cobrand .lab { font-size: 16px; font-weight: 700; color: var(--navy); letter-spacing: .2px; }
 .hero h1 { font-size: 40px; line-height: 1.12; margin: 0 0 14px; letter-spacing: -.6px; }
 .hero h1 .accent { color: #ffd0b0; }
 .hero p.lead { font-size: 18px; color: #d7e4ee; max-width: 720px; margin: 0 0 26px; }

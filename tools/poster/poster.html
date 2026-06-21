@@ -47,12 +47,12 @@
 
   /* ---- Body ---- */
   .body{ padding:70px 70px 0; }
-  .chips{ display:flex; flex-wrap:wrap; gap:14px; max-width:660px; }
+  .chips{ display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:680px; }
   .chip-pill{
-    display:inline-flex; align-items:center; gap:10px; font-size:24px; font-weight:600; color:var(--navy);
-    background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:12px 20px;
+    display:flex; align-items:center; gap:13px; font-size:24px; font-weight:600; color:var(--navy);
+    background:var(--soft); border:1px solid var(--line); border-radius:16px; padding:17px 24px;
   }
-  .chip-pill .em{ font-size:24px; }
+  .chip-pill .em{ font-size:25px; }
 
   .flow-title{ font-size:21px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); margin:54px 0 18px; }
   .flow{ display:flex; align-items:stretch; gap:0; }
