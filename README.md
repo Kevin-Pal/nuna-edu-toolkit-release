@@ -123,6 +123,31 @@ Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xi
 
 **Contact:** Anlan Peng — [pa025@ie.cuhk.edu.hk](mailto:pa025@ie.cuhk.edu.hk) · [AIoT Lab, CUHK](https://aiot.ie.cuhk.edu.hk/)
 
+## Citation
+
+If you use Nuna-Edu-Toolkit, a dataset collected with it, or a research direction from our
+[documentation](https://kevin-pal.github.io/nuna-edu-toolkit-release/docs/) in academic or other
+work, **please cite this work.** GitHub's "Cite this repository" button (backed by
+[`CITATION.cff`](CITATION.cff)) produces the reference below:
+
+```bibtex
+@software{Peng_Nuna_Edu_Toolkit_2026,
+  author = {Peng, Anlan and Xie, Ruihan and Su, Yihang and Jiang, Siyang and
+            Xie, Zhiyuan and Yan, Zhenyu and Xing, Guoliang},
+  title  = {{Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting and
+            Annotating First-Person Audio Datasets}},
+  year   = {2026},
+  url    = {https://github.com/Kevin-Pal/nuna-edu-toolkit-release},
+  note   = {AIoT Lab, The Chinese University of Hong Kong.
+            Source-available under PolyForm Noncommercial 1.0.0}
+}
+```
+
+The research directions in the documentation are the authors' original, previously unpublished
+ideas, shared to invite collaboration — please cite them and feel free to reach out. The code, the
+documentation text, and datasets produced with the toolkit are © 2026 the authors; commercial use
+requires a separate license (see below).
+
 ## License
 
 Licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)** (SPDX: `PolyForm-Noncommercial-1.0.0`).

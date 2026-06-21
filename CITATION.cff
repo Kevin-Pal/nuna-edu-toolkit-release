@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+title: "Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting and Annotating First-Person Audio Datasets"
+message: >-
+  If you use this toolkit, a dataset collected with it, or a research direction
+  described in its documentation, please cite it as below.
+type: software
+authors:
+  - given-names: Anlan
+    family-names: Peng
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+    email: pa025@ie.cuhk.edu.hk
+  - given-names: Ruihan
+    family-names: Xie
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Yihang
+    family-names: Su
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Siyang
+    family-names: Jiang
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Zhiyuan
+    family-names: Xie
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Zhenyu
+    family-names: Yan
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Guoliang
+    family-names: Xing
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+date-released: "2026-06-21"
+license: PolyForm-Noncommercial-1.0.0
+url: "https://kevin-pal.github.io/nuna-edu-toolkit-release/"
+repository-code: "https://github.com/Kevin-Pal/nuna-edu-toolkit-release"
+keywords:
+  - first-person audio
+  - egocentric audio
+  - affective computing
+  - acoustic scene classification
+  - wearable sensing
+  - dataset

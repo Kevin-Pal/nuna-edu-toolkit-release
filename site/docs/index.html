@@ -105,6 +105,9 @@
   .doc-foot{ margin-top:54px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; }
   .doc-foot a{ color:var(--teal); text-decoration:none; }
 
+  .doc pre.cite{ background:var(--navy); color:#dbe7f0; border-radius:12px; padding:16px 18px; overflow-x:auto; margin:14px 0; }
+  .doc pre.cite code{ background:none; border:0; padding:0; color:inherit; font-size:13px; line-height:1.5; white-space:pre; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+
   /* language switching */
   body.lang-en .zh{ display:none; }
   body.lang-zh .en{ display:none; }
@@ -149,6 +152,7 @@
     <a href="#developer"><span class="en">4 · Self-hosting</span><span class="zh">4 · 自部署</span></a>
     <a href="#value"><span class="en">5 · What the dataset supports</span><span class="zh">5 · 数据集支持的任务</span></a>
     <a href="#open"><span class="en">6 · Open research directions</span><span class="zh">6 · 开放研究方向</span></a>
+    <a href="#cite"><span class="en">7 · Citing this work</span><span class="zh">7 · 引用本工作</span></a>
   </nav>
 
   <!-- 1. OVERVIEW -->
@@ -156,6 +160,7 @@
     <h2><span class="num">1</span><span class="en">Overview</span><span class="zh">概述</span></h2>
     <div class="en">
       <p>Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating first-person ambient audio. Sound captured by the <strong>Nuna</strong> wearable (a commercial smart necklace) is streamed to a server <em>you</em> control, sliced into 1-minute segments, optionally pre-labeled with ASR for fast recall, and annotated through a web app using a flexible, event-driven schema. Participants stay in control: they choose which recordings to share and can delete the rest.</p>
+      <p>The toolkit has two parts: a <strong>mobile collection app</strong> that streams audio from the wearable to your server, and <strong>Nuna Audio Lab</strong> — the web app where you review and annotate it ("Lab" = <em>labeling</em>). End to end: Nuna wearable → phone → your server → label &amp; export. (You'll see the "Nuna Audio Lab" name in the app and the live demo.)</p>
       <div class="callout">
         <div class="tag">The method this toolkit is built around</div>
         <p>This documentation describes <strong>one</strong> way to use the toolkit — and the one it is designed around: a <strong>self-recall annotation</strong> workflow for building <strong>first-person (ego) audio datasets</strong>. The person who wore the device reviews their own day (helped by timestamps and ASR previews) and labels scene, event, and emotion <em>from memory</em>. Because the annotations come from the person who actually lived the moment, the emotion and event ground-truth is genuinely first-person and self-reported — not a third party's guess. The label schema is web-based and easy to swap, so the same platform can serve other annotation tasks too.</p>
@@ -163,6 +168,7 @@
     </div>
     <div class="zh">
       <p>Nuna-Edu-Toolkit 是一个可自部署、源码可得（source-available）的平台，用于采集与标注第一人称环境音频。由 <strong>Nuna</strong> 智能项链（一款成熟的商用可穿戴设备）采集的声音会被推流到<em>你自己</em>掌控的服务器，切分为 1 分钟的片段，可选地用 ASR 预标注以便快速回忆，并通过一个 Web App、以灵活的事件驱动模式进行标注。参与者始终掌握主动权：自行选择愿意共享哪些录音，其余可删除。</p>
+      <p>工具链由两部分组成：<strong>手机采集 App</strong>（将可穿戴设备的音频推流到你的服务器），以及 <strong>Nuna Audio Lab</strong>——用于回看与标注的网页应用（其中“Lab”取 <em>labeling／标注</em> 之意）。整条链路为：Nuna 项链 → 手机 → 你的服务器 → 标注与导出。（你会在应用与在线 Demo 中看到 “Nuna Audio Lab” 这一名称。）</p>
       <div class="callout">
         <div class="tag">本工具围绕的核心方法</div>
         <p>本文档描述的是该工具的<strong>一种</strong>用法，也是它最初为之设计的用法：一套用于构建<strong>第一人称（ego）音频数据集</strong>的<strong>用户自回忆标注</strong>流程。佩戴设备的人借助时间戳与 ASR 预览回顾自己的一天，<em>凭记忆</em>标注场景、事件与情绪。由于标注来自亲历者本人，情绪与事件的 ground-truth 是真正第一人称、自我报告的，而非第三方的猜测。标注模式基于网页、易于替换，因此同一平台也可服务于其他标注任务。</p>
@@ -366,6 +372,10 @@
       <span class="en">Beyond the established tasks above, the same data — longitudinal, first-person, self-reported emotion — opens a few directions with real-world demand. These are opportunities, not promises.</span>
       <span class="zh">在上述成熟任务之外，同一份数据——纵向、第一人称、情绪由本人报告——还开启了若干具有现实需求的方向。以下是研究机会，而非承诺。</span>
     </p>
+    <div class="callout">
+      <div class="tag"><span class="en">Intellectual property</span><span class="zh">知识产权</span></div>
+      <p><span class="en">These research directions are the authors' original, previously-unpublished ideas, disclosed here to invite collaboration. If you pursue or build on any of them, please <a href="#cite">cite this work</a> — and we'd welcome a note to the authors. © 2026 the Nuna-Edu-Toolkit authors; all rights reserved.</span><span class="zh">这些研究方向是作者原创、此前未发表的想法，于此公开以邀请合作。若你采用或在其基础上开展工作，请<a href="#cite">引用本工作</a>，并欢迎告知作者。© 2026 Nuna-Edu-Toolkit 作者，保留所有权利。</span></p>
+    </div>
     <div class="en">
       <div class="opens">
         <div class="ocard">
@@ -392,6 +402,11 @@
           <h3>Audio life-logging &amp; day narration</h3>
           <p>Reconstruct a structured, navigable summary of a day from ambient audio plus labels and notes — the "what happened today" view.</p>
           <div class="need">Real-world need · memory aids, personal informatics</div>
+        </div>
+        <div class="ocard">
+          <h3>Label-efficient audio learning</h3>
+          <p>Treat the coarse, sparse, self-reported labels as weak supervision to pre-train audio representations and cut the cost of densely labeling real-world data.</p>
+          <div class="need">Real-world need · scalable, affordable dataset construction</div>
         </div>
       </div>
       <p class="legend">Selective uploads can bias a real-world dataset. Strong automated pre-labeling (VAD/SED and ASR recall) lowers the burden of keeping more data, which helps keep coverage representative — a practical concern worth designing for.</p>
@@ -423,14 +438,52 @@
           <p>由环境音加标签与备注，重建一份结构化、可浏览的「今天发生了什么」日记摘要。</p>
           <div class="need">现实需求 · 记忆辅助、个人信息学</div>
         </div>
+        <div class="ocard">
+          <h3>标签高效的音频学习</h3>
+          <p>把粗粒度、稀疏、自我报告的标签当作弱监督，用于预训练音频表征，降低真实世界数据稠密标注的成本。</p>
+          <div class="need">现实需求 · 可扩展、低成本的数据集构建</div>
+        </div>
       </div>
       <p class="legend">选择性上传会给真实世界数据集带来偏差。强大的自动预标注（VAD/SED 与 ASR 回忆）能降低保留更多数据的负担，有助于让覆盖更具代表性——这是值得在设计中考量的现实问题。</p>
     </div>
   </section>
 
+  <!-- 7. CITATION -->
+  <section id="cite">
+    <h2><span class="num">7</span><span class="en">Citing this work</span><span class="zh">引用本工作</span></h2>
+    <div class="en">
+      <p>Nuna-Edu-Toolkit, the datasets collected with it, and the research directions above are the work of the authors at the AIoT Lab, CUHK. If you use the software, a dataset built with it, or any idea from this documentation in academic or other work, <strong>please cite us</strong>. The repository ships a <code>CITATION.cff</code>, so GitHub's "Cite this repository" button produces the same reference.</p>
+      <pre class="cite"><code>@software{Peng_Nuna_Edu_Toolkit_2026,
+  author = {Peng, Anlan and Xie, Ruihan and Su, Yihang and Jiang, Siyang and
+            Xie, Zhiyuan and Yan, Zhenyu and Xing, Guoliang},
+  title  = {{Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting
+            and Annotating First-Person Audio Datasets}},
+  year   = {2026},
+  url    = {https://github.com/Kevin-Pal/nuna-edu-toolkit-release},
+  note   = {AIoT Lab, The Chinese University of Hong Kong.
+            Source-available under PolyForm Noncommercial 1.0.0}
+}</code></pre>
+      <p class="legend">Use of the software and the datasets it produces is governed by the <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release/blob/main/LICENSE" target="_blank" rel="noopener">PolyForm Noncommercial 1.0.0</a> license (research &amp; non-commercial use only; commercial use requires a separate license). The text and figures in this documentation are © 2026 the authors. For collaboration or commercial licensing, contact <a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>.</p>
+    </div>
+    <div class="zh">
+      <p>Nuna-Edu-Toolkit、用它采集的数据集，以及上文所述的研究方向，均为香港中文大学 AIoT 实验室作者的成果。若你在学术或其他工作中使用了本软件、用其构建的数据集，或本文档中的任何想法，<strong>请引用我们</strong>。仓库随附 <code>CITATION.cff</code>，GitHub 的「Cite this repository」按钮可生成相同引用。</p>
+      <pre class="cite"><code>@software{Peng_Nuna_Edu_Toolkit_2026,
+  author = {Peng, Anlan and Xie, Ruihan and Su, Yihang and Jiang, Siyang and
+            Xie, Zhiyuan and Yan, Zhenyu and Xing, Guoliang},
+  title  = {{Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting
+            and Annotating First-Person Audio Datasets}},
+  year   = {2026},
+  url    = {https://github.com/Kevin-Pal/nuna-edu-toolkit-release},
+  note   = {AIoT Lab, The Chinese University of Hong Kong.
+            Source-available under PolyForm Noncommercial 1.0.0}
+}</code></pre>
+      <p class="legend">本软件及其产出数据集的使用须遵循 <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release/blob/main/LICENSE" target="_blank" rel="noopener">PolyForm Noncommercial 1.0.0</a> 许可（仅限科研与非商业用途；商业使用须另行授权）。本文档的文字与图表版权 © 2026 作者所有。合作或商业授权请联系 <a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>。</p>
+    </div>
+  </section>
+
   <div class="doc-foot">
-    <div class="en">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>, The Chinese University of Hong Kong. &nbsp;Contact: <a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>. &nbsp;Licensed under PolyForm Noncommercial 1.0.0 (source-available; free for non-commercial &amp; research use).</div>
-    <div class="zh">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>，香港中文大学。&nbsp;联系：<a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>。&nbsp;采用 PolyForm Noncommercial 1.0.0 许可（源码可得；非商业与研究用途免费）。</div>
+    <div class="en">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>, The Chinese University of Hong Kong. &nbsp;© 2026 the authors — please cite this work (§7). &nbsp;Contact: <a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>. &nbsp;Licensed under PolyForm Noncommercial 1.0.0 (source-available; free for non-commercial &amp; research use).</div>
+    <div class="zh">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>，香港中文大学。&nbsp;© 2026 作者，请引用本工作（见 §7）。&nbsp;联系：<a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>。&nbsp;采用 PolyForm Noncommercial 1.0.0 许可（源码可得；非商业与研究用途免费）。</div>
   </div>
 
 </div>
