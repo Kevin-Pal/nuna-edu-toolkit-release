@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root{
+    --navy:#0E2841; --teal:#156082; --teal2:#0F9ED5; --orange:#E97132;
+    --peach:#ffd0b0; --ink:#1c2b39; --muted:#5b6b7a; --line:#e6ebf0; --soft:#f6f8fb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{margin:0;}
+  .poster{
+    width:1080px; height:1350px; position:relative; overflow:hidden; background:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Hiragino Sans GB",sans-serif;
+    color:var(--ink);
+  }
+
+  /* ---- Hero ---- */
+  .hero{
+    height:600px; padding:64px 70px 0; color:#fff; position:relative;
+    background:
+      radial-gradient(900px 380px at 82% -12%, rgba(15,158,213,.30), transparent 60%),
+      linear-gradient(158deg,#0E2841 0%,#14405e 52%,#156082 100%);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:12px;
+    background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.30);
+    color:#eaf6ff; padding:10px 18px 10px 10px; border-radius:999px;
+    font-size:23px; font-weight:600; letter-spacing:.2px;
+  }
+  .badge .chip{ width:40px; height:40px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
+  .badge .chip img{ width:30px; height:30px; display:block; }
+  .title{ font-size:96px; font-weight:800; letter-spacing:-2.5px; line-height:1; margin-top:34px; }
+  .tagline{ font-size:42px; font-weight:600; line-height:1.18; margin-top:26px; max-width:590px; color:#eaf3fa; }
+  .tagline .hl{ color:var(--peach); }
+  .descr{ font-size:24px; line-height:1.5; color:#c8dcea; margin-top:24px; max-width:560px; }
+
+  /* pendant card straddling hero/white */
+  .photo{
+    position:absolute; right:70px; top:300px; width:330px; height:330px;
+    background:#fff; border:1px solid var(--line); border-radius:30px; padding:20px;
+    box-shadow:0 26px 60px rgba(7,23,41,.34);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .photo img{ width:100%; height:100%; object-fit:contain; }
+
+  /* ---- Body ---- */
+  .body{ padding:70px 70px 0; }
+  .chips{ display:flex; flex-wrap:wrap; gap:14px; max-width:660px; }
+  .chip-pill{
+    display:inline-flex; align-items:center; gap:10px; font-size:24px; font-weight:600; color:var(--navy);
+    background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:12px 20px;
+  }
+  .chip-pill .em{ font-size:24px; }
+
+  .flow-title{ font-size:21px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); margin:54px 0 18px; }
+  .flow{ display:flex; align-items:stretch; gap:0; }
+  .step{ flex:1; }
+  .step .k{ font-size:25px; font-weight:800; color:var(--navy); }
+  .step .d{ font-size:18px; color:var(--muted); margin-top:4px; line-height:1.35; }
+  .arrow{ align-self:center; color:var(--teal2); font-size:30px; font-weight:700; padding:0 6px; }
+
+  /* ---- Footer ---- */
+  .footer{ position:absolute; left:70px; right:70px; bottom:56px; display:flex; align-items:center; gap:30px; }
+  .qr{ width:188px; height:188px; flex:none; border:1px solid var(--line); border-radius:18px; padding:12px; background:#fff; }
+  .qr img{ width:100%; height:100%; display:block; }
+  .cta .scan{ font-size:21px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--teal); }
+  .cta .url{ font-size:30px; font-weight:800; color:var(--navy); letter-spacing:-.6px; margin-top:6px; white-space:nowrap; }
+  .cta .sub{ font-size:22px; color:var(--muted); margin-top:12px; }
+  .cta .lab{ display:flex; align-items:center; gap:12px; margin-top:16px; }
+  .cta .lab img{ width:44px; height:44px; display:block; }
+  .cta .lab span{ font-size:21px; color:var(--ink); font-weight:600; }
+  .accentbar{ position:absolute; left:0; right:0; bottom:0; height:14px; background:linear-gradient(90deg,var(--orange),#f0a06a 60%,var(--teal2)); }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="hero">
+      <div class="badge"><span class="chip"><img src="../../site/assets/img/aiot-lab-logo.svg"></span> AIoT Lab · The Chinese University of Hong Kong</div>
+      <div class="title">Nuna-Edu-Toolkit</div>
+      <div class="tagline">Turn everyday ambient sound into <span class="hl">research-ready audio datasets</span>.</div>
+      <div class="descr">A self-hostable, source-available platform for collecting &amp; annotating first-person audio from the Nuna wearable.</div>
+      <div class="photo"><img src="../../site/assets/img/nuna-pendant.png"></div>
+    </div>
+
+    <div class="body">
+      <div class="chips">
+        <span class="chip-pill"><span class="em">🏠</span> Self-hostable</span>
+        <span class="chip-pill"><span class="em">🗣️</span> Pluggable ASR</span>
+        <span class="chip-pill"><span class="em">🧩</span> Event-driven labels</span>
+        <span class="chip-pill"><span class="em">🔒</span> Privacy-first</span>
+      </div>
+
+      <div class="flow-title">How it works</div>
+      <div class="flow">
+        <div class="step"><div class="k">Capture</div><div class="d">wearable streams to your server</div></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="k">Slice</div><div class="d">1-minute segments</div></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="k">ASR recall</div><div class="d">speech-to-text preview</div></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="k">Annotate</div><div class="d">block + point labels</div></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="k">Dataset</div><div class="d">first-person audio</div></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="qr"><img src="../../site/assets/qr/site.png"></div>
+      <div class="cta">
+        <div class="scan">Scan to try the live demo</div>
+        <div class="url">kevin-pal.github.io/nuna-edu-toolkit-release</div>
+        <div class="sub">Live demo · Android app · full source — one link. Free for non-commercial &amp; research use.</div>
+        <div class="lab"><img src="../../site/assets/img/aiot-lab-logo.svg"><span>AIoT Lab · CUHK</span></div>
+      </div>
+    </div>
+    <div class="accentbar"></div>
+  </div>
+</body>
+</html>
