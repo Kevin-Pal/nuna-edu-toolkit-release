@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — Nuna-Edu-Toolkit</title>
+<meta name="description" content="Bilingual documentation for Nuna-Edu-Toolkit: how to collect and annotate first-person ambient audio, how to self-host the platform, and what research tasks the resulting ego-audio dataset supports.">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<style>
+  :root{ --peach:#ffd0b0; }
+  body.doc{ background:#fff; }
+
+  /* top bar */
+  .docbar{
+    position:sticky; top:0; z-index:20; background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line);
+  }
+  .docbar .inner{ max-width:920px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:16px; }
+  .docbar .home{ font-weight:700; color:var(--navy); text-decoration:none; letter-spacing:-.3px; }
+  .docbar .home .dot{ color:var(--orange); }
+  .docbar .spacer{ flex:1; }
+  .cobrand-mini{ display:inline-flex; align-items:center; gap:9px; }
+  .cobrand-mini img.thingx{ height:16px; width:auto; display:block; }
+  .cobrand-mini img.aiot{ height:24px; width:auto; display:block; }
+  .cobrand-mini .x{ color:#9fb1c0; font-size:14px; }
+  .cobrand-mini .lab{ font-size:13px; font-weight:700; color:var(--navy); }
+  @media (max-width:680px){ .cobrand-mini .lab{ display:none; } }
+  .langtoggle{ display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .langtoggle button{
+    border:0; background:#fff; color:var(--muted); font:inherit; font-size:13px; font-weight:600;
+    padding:6px 14px; cursor:pointer;
+  }
+  .langtoggle button.active{ background:var(--teal); color:#fff; }
+
+  /* layout */
+  .doc-wrap{ max-width:920px; margin:0 auto; padding:0 20px 90px; }
+  .doc-hero{ padding:46px 0 8px; }
+  .doc-hero .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.7px; text-transform:uppercase; color:var(--teal); }
+  .doc-hero h1{ font-size:36px; line-height:1.12; color:var(--navy); margin:8px 0 10px; letter-spacing:-.5px; }
+  .doc-hero p.lede{ font-size:17px; color:var(--muted); max-width:680px; margin:0; }
+
+  .toc{ display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 8px; }
+  .toc a{
+    font-size:13.5px; font-weight:600; color:var(--navy); text-decoration:none;
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:7px 14px;
+  }
+  .toc a:hover{ border-color:var(--teal); color:var(--teal); }
+
+  .doc section{ margin:44px 0 0; scroll-margin-top:74px; }
+  .doc h2{ font-size:25px; color:var(--navy); margin:0 0 6px; letter-spacing:-.3px; }
+  .doc h2 .num{ color:var(--teal); font-weight:800; margin-right:10px; }
+  .doc .sub{ color:var(--muted); margin:0 0 18px; font-size:15px; }
+  .doc h3{ font-size:17px; color:var(--navy); margin:24px 0 8px; }
+  .doc p{ font-size:15.5px; color:var(--ink); margin:0 0 14px; }
+  .doc ul,.doc ol{ margin:0 0 14px; padding-left:22px; }
+  .doc li{ font-size:15.5px; color:var(--ink); margin:6px 0; }
+  .doc a{ color:var(--teal); }
+  .doc strong{ color:var(--navy); }
+  .doc code{ background:var(--bg-soft); border:1px solid var(--line); border-radius:6px; padding:1px 6px; font-size:13.5px; }
+
+  .callout{
+    border:1px solid #cfe6f5; background:linear-gradient(160deg,#fff 0%,#f3f9ff 100%);
+    border-radius:14px; padding:16px 20px; margin:18px 0;
+  }
+  .callout .tag{ font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--teal); }
+  .callout p{ margin:6px 0 0; }
+
+  /* steps */
+  .stepblock{ border:1px solid var(--line); border-radius:14px; padding:4px 22px; margin:16px 0; }
+  .stepblock h3{ display:flex; align-items:center; gap:12px; }
+  .stepblock h3 .n{
+    width:26px; height:26px; flex:none; border-radius:8px; background:var(--teal); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;
+  }
+
+  /* schema cards */
+  .schema{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+  @media (max-width:680px){ .schema{ grid-template-columns:1fr; } }
+  .scard{ border:1px solid var(--line); border-radius:14px; padding:18px 20px; background:var(--bg-soft); }
+  .scard h3{ margin:0 0 4px; }
+  .scard .lvl{ font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--teal); }
+  .scard ul{ margin:10px 0 2px; }
+  .scard .ex{ color:var(--muted); font-size:14px; }
+
+  /* task table */
+  .tablewrap{ overflow-x:auto; border:1px solid var(--line); border-radius:14px; margin:16px 0; }
+  table.tasks{ border-collapse:collapse; width:100%; min-width:640px; font-size:14.5px; }
+  table.tasks th,table.tasks td{ text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.tasks thead th{ background:var(--navy); color:#fff; font-weight:600; font-size:13.5px; }
+  table.tasks tbody tr:last-child td{ border-bottom:0; }
+  table.tasks td.task{ font-weight:700; color:var(--navy); white-space:nowrap; }
+  .badge{ display:inline-block; font-size:12px; font-weight:700; border-radius:999px; padding:3px 10px; white-space:nowrap; }
+  .badge.full{ background:#e4f5ea; color:#1d7a45; }
+  .badge.part{ background:#fdf0dd; color:#9a6212; }
+  .legend{ font-size:13.5px; color:var(--muted); margin:8px 2px 0; }
+
+  /* open-task grid */
+  .opens{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+  @media (max-width:680px){ .opens{ grid-template-columns:1fr; } }
+  .ocard{ border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .ocard h3{ margin:0 0 6px; font-size:16px; }
+  .ocard p{ font-size:14.5px; color:var(--muted); margin:0 0 8px; }
+  .ocard .need{ font-size:12.5px; font-weight:700; color:var(--teal); }
+
+  .doc-foot{ margin-top:54px; padding-top:24px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; }
+  .doc-foot a{ color:var(--teal); text-decoration:none; }
+
+  /* language switching */
+  body.lang-en .zh{ display:none; }
+  body.lang-zh .en{ display:none; }
+</style>
+</head>
+<body class="doc lang-en">
+
+<div class="docbar">
+  <div class="inner">
+    <a class="home" href="../index.html">nuna-edu-toolkit<span class="dot">.</span></a>
+    <span class="spacer"></span>
+    <span class="cobrand-mini">
+      <a href="https://www.thingx.ai/" target="_blank" rel="noopener"><img class="thingx" src="../assets/img/thingx-logo.png" alt="ThingX"></a>
+      <span class="x">×</span>
+      <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener"><img class="aiot" src="../assets/img/aiot-lab-logo.svg" alt=""></a>
+      <span class="lab">AIoT Lab · CUHK</span>
+    </span>
+    <span class="langtoggle">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="zh">中文</button>
+    </span>
+  </div>
+</div>
+
+<div class="doc-wrap doc">
+
+  <!-- HERO -->
+  <div class="doc-hero">
+    <div class="eyebrow"><span class="en">Documentation</span><span class="zh">文档</span></div>
+    <h1>Nuna-Edu-Toolkit</h1>
+    <p class="lede">
+      <span class="en">A practical guide to collecting and annotating first-person ambient audio with Nuna-Edu-Toolkit — and an overview of the research tasks the resulting <em>ego-audio</em> dataset supports.</span>
+      <span class="zh">用 Nuna-Edu-Toolkit 采集与标注第一人称环境音频的实用指南，以及由此构建的<em>第一人称（ego）音频</em>数据集所能支持的研究任务概览。</span>
+    </p>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <a href="#overview"><span class="en">1 · Overview</span><span class="zh">1 · 概述</span></a>
+    <a href="#model"><span class="en">2 · How a dataset is built</span><span class="zh">2 · 数据集如何构建</span></a>
+    <a href="#contributor"><span class="en">3 · Collecting &amp; annotating</span><span class="zh">3 · 采集与标注</span></a>
+    <a href="#developer"><span class="en">4 · Self-hosting</span><span class="zh">4 · 自部署</span></a>
+    <a href="#value"><span class="en">5 · What the dataset supports</span><span class="zh">5 · 数据集支持的任务</span></a>
+    <a href="#open"><span class="en">6 · Open research directions</span><span class="zh">6 · 开放研究方向</span></a>
+  </nav>
+
+  <!-- 1. OVERVIEW -->
+  <section id="overview">
+    <h2><span class="num">1</span><span class="en">Overview</span><span class="zh">概述</span></h2>
+    <div class="en">
+      <p>Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating first-person ambient audio. Sound captured by the <strong>Nuna</strong> wearable (a commercial smart necklace) is streamed to a server <em>you</em> control, sliced into 1-minute segments, optionally pre-labeled with ASR for fast recall, and annotated through a web app using a flexible, event-driven schema. Participants stay in control: they choose which recordings to share and can delete the rest.</p>
+      <div class="callout">
+        <div class="tag">The method this toolkit is built around</div>
+        <p>This documentation describes <strong>one</strong> way to use the toolkit — and the one it is designed around: a <strong>self-recall annotation</strong> workflow for building <strong>first-person (ego) audio datasets</strong>. The person who wore the device reviews their own day (helped by timestamps and ASR previews) and labels scene, event, and emotion <em>from memory</em>. Because the annotations come from the person who actually lived the moment, the emotion and event ground-truth is genuinely first-person and self-reported — not a third party's guess. The label schema is web-based and easy to swap, so the same platform can serve other annotation tasks too.</p>
+      </div>
+    </div>
+    <div class="zh">
+      <p>Nuna-Edu-Toolkit 是一个可自部署、源码可得（source-available）的平台，用于采集与标注第一人称环境音频。由 <strong>Nuna</strong> 智能项链（一款成熟的商用可穿戴设备）采集的声音会被推流到<em>你自己</em>掌控的服务器，切分为 1 分钟的片段，可选地用 ASR 预标注以便快速回忆，并通过一个 Web App、以灵活的事件驱动模式进行标注。参与者始终掌握主动权：自行选择愿意共享哪些录音，其余可删除。</p>
+      <div class="callout">
+        <div class="tag">本工具围绕的核心方法</div>
+        <p>本文档描述的是该工具的<strong>一种</strong>用法，也是它最初为之设计的用法：一套用于构建<strong>第一人称（ego）音频数据集</strong>的<strong>用户自回忆标注</strong>流程。佩戴设备的人借助时间戳与 ASR 预览回顾自己的一天，<em>凭记忆</em>标注场景、事件与情绪。由于标注来自亲历者本人，情绪与事件的 ground-truth 是真正第一人称、自我报告的，而非第三方的猜测。标注模式基于网页、易于替换，因此同一平台也可服务于其他标注任务。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. HOW A DATASET IS BUILT -->
+  <section id="model">
+    <h2><span class="num">2</span><span class="en">How a dataset is built</span><span class="zh">数据集如何构建</span></h2>
+    <p class="sub">
+      <span class="en">Capture → slice → ASR recall → annotate → dataset.</span>
+      <span class="zh">采集 → 切片 → ASR 回忆 → 标注 → 数据集。</span>
+    </p>
+    <div class="en">
+      <p>The wearable streams ambient sound to your ingest server, which stores the raw audio and slices it into 1-minute segments grouped by day (hour → quarter → minute). Each segment gets an optional speech-to-text preview so the wearer can recall context at a glance. Annotation is <strong>event-driven</strong> and <strong>multi-granularity</strong>: scene, event, and emotion naturally occur at very different time scales, so the schema is layered into <em>blocks</em> (coarse) and <em>points</em> (fine, sparse).</p>
+      <div class="schema">
+        <div class="scard">
+          <div class="lvl">Block label — coarse</div>
+          <h3>A stable stretch of time</h3>
+          <p class="ex">Tens of minutes to hours, during which the environment barely changes, an ongoing activity continues, and the overall mood is stable.</p>
+          <ul>
+            <li><strong>Scene</strong> — <code>[adjective] [noun], [note]</code>; describes the surroundings (non-ego), ideally inferable from sound. <span class="ex">e.g. "quiet classroom — a group sitting an exam."</span></li>
+            <li><strong>Behavior</strong> — <code>[adverb] [verb], [note]</code>; the wearer's ongoing activity (ego-HAR). <span class="ex">e.g. "attentively invigilating — pacing, reminding students."</span></li>
+            <li><strong>Emotion</strong> — overall tone on a Valence–Arousal grid.</li>
+            <li><strong>+ VAD</strong> over the block (speech present / absent).</li>
+          </ul>
+        </div>
+        <div class="scard">
+          <div class="lvl">Point label — fine &amp; sparse</div>
+          <h3>A salient moment inside a block</h3>
+          <p class="ex">A few minutes within a block: same scene, but a distinctive sub-event happens and shifts the mood.</p>
+          <ul>
+            <li><strong>Point event</strong> — either an <em>environmental fluctuation</em> <code>[subject] [predicate], [note]</code> (non-ego, e.g. "a glass falls and shatters") or a <em>personal action</em> <code>[adverb] [verb], [note]</code> (ego-HAR, e.g. "nervously answering a question").</li>
+            <li><strong>Emotion</strong> — the mood fluctuation the point event causes (Valence–Arousal).</li>
+            <li><strong>+ VAD</strong> over the point.</li>
+          </ul>
+        </div>
+      </div>
+      <p>The two-dimensional <strong>Valence–Arousal</strong> emotion model spans pleasant↔unpleasant (valence) and calm↔activated (arousal) — e.g. low-valence/high-arousal reads as <em>tense</em>, high-valence/low-arousal as <em>relaxed</em>. Blocks must cover contiguous whole segments; points cover one or more segments within their block. This is exactly the shape of the data the platform stores.</p>
+    </div>
+    <div class="zh">
+      <p>可穿戴设备将环境音推流到你的接收服务器，服务器保存原始音频并按天切分为 1 分钟片段（小时 → 刻钟 → 分钟分组）。每个片段可附带语音转文字预览，便于佩戴者一眼回忆上下文。标注以<strong>事件驱动</strong>且<strong>多粒度</strong>：场景、事件、情绪天然处于差异很大的时间尺度，因此模式被分层为<em>块标注</em>（粗）与<em>点标注</em>（细而稀疏）。</p>
+      <div class="schema">
+        <div class="scard">
+          <div class="lvl">块标注 — 粗粒度</div>
+          <h3>一段稳定的时间</h3>
+          <p class="ex">数十分钟到数小时，期间环境几乎不变、进行着某项持续性活动、整体情绪基调稳定。</p>
+          <ul>
+            <li><strong>场景</strong> — <code>【形容词】的【名词】，【备注】</code>；描述周围环境（非 ego），最好能由声音推断。<span class="ex">例：「安静的教室——一群学生正在考试。」</span></li>
+            <li><strong>块状事件（行为）</strong> — <code>【副词】地【动词/动宾】，【备注】</code>；佩戴者本人的持续性活动（ego-HAR）。<span class="ex">例：「认真地监考——不时走动、提醒同学。」</span></li>
+            <li><strong>情绪</strong> — 整段时间在 Valence–Arousal（效价–唤醒）网格上的总体基调。</li>
+            <li><strong>+ VAD</strong>：该块的语音活动检测（有无人声）。</li>
+          </ul>
+        </div>
+        <div class="scard">
+          <div class="lvl">点标注 — 细而稀疏</div>
+          <h3>块内的一个显著时刻</h3>
+          <p class="ex">块内的几分钟：场景相同，但发生了具有明显特征的子事件，并引起情绪波动。</p>
+          <ul>
+            <li><strong>点状事件</strong> — 二选一：<em>环境波动</em> <code>【主】【谓】，【备注】</code>（非 ego，例：「玻璃杯掉到地上摔碎」）或 <em>个人行动</em> <code>【副词】地【动词】，【备注】</code>（ego-HAR，例：「紧张地回答问题」）。</li>
+            <li><strong>情绪</strong> — 该点状事件带来的情绪波动（Valence–Arousal）。</li>
+            <li><strong>+ VAD</strong>：该点的语音活动检测。</li>
+          </ul>
+        </div>
+      </div>
+      <p>二维<strong>效价–唤醒（Valence–Arousal）</strong>情绪模型刻画「愉快↔不愉快」（效价）与「松弛↔激活」（唤醒）——例如低效价/高唤醒近似「紧绷」，高效价/低唤醒近似「轻松」。块必须覆盖连续的整段片段；点在所属块内覆盖一个或多个片段。这正是平台所存储数据的结构。</p>
+    </div>
+  </section>
+
+  <!-- 3. CONTRIBUTOR GUIDE -->
+  <section id="contributor">
+    <h2><span class="num">3</span><span class="en">Collecting &amp; annotating (for participants)</span><span class="zh">采集与标注（面向参与者）</span></h2>
+    <p class="sub">
+      <span class="en">What a data contributor does, end to end. You'll need a Nuna necklace, an Android phone, and two URLs from your study's developer: the annotation-site URL and the data-upload URL.</span>
+      <span class="zh">数据贡献者的完整流程。你需要：一条 Nuna 项链、一部安卓手机，以及由研究方（开发者）提供的两个地址：标注网站 URL 与数据上传 URL。</span>
+    </p>
+
+    <div class="stepblock">
+      <h3><span class="n">1</span><span class="en">Install the data-collection app</span><span class="zh">安装数据采集 App</span></h3>
+      <div class="en"><p>The public app-store build of the Nuna app does not upload or save audio. Install the internal-beta data-collection build instead: <a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a> (Android only).</p></div>
+      <div class="zh"><p>应用市场的 Nuna 发行版没有音频上传/保存功能，请安装专用于数据采集的内测版：<a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a>（仅支持安卓）。</p></div>
+    </div>
+
+    <div class="stepblock">
+      <h3><span class="n">2</span><span class="en">Pair the necklace &amp; start capturing</span><span class="zh">连接项链并开始采集</span></h3>
+      <div class="en"><p>Register an account by email, then add your device under <em>Me → My Device → ＋</em> and follow the prompts. When the status shows a green <strong>Connected</strong>, the necklace is streaming ambient sound to the server. Keep the phone online — uploads are streamed, so audio captured offline may be lost.</p></div>
+      <div class="zh"><p>用邮箱注册账号，在 <em>Me → My Device → 右上角 ＋</em> 添加设备并按提示完成搜索配对。当状态显示绿色 <strong>Connected</strong> 时，项链已在向服务器推流采集。请保持手机联网——上传是推流机制，断网期间的数据可能丢失。</p></div>
+    </div>
+
+    <div class="stepblock">
+      <h3><span class="n">3</span><span class="en">Point uploads at your study's server</span><span class="zh">将上传指向研究方服务器</span></h3>
+      <div class="en"><p>So that audio goes to the developer's server (not Nuna's), set the upload server URL in the app to the <strong>data-upload URL</strong> your developer gave you, and save.</p></div>
+      <div class="zh"><p>为了让音频上传到开发者服务器（而非 Nuna 官方服务器），在 App 中将上传服务器地址手动配置为开发者提供的<strong>数据上传 URL</strong>并保存。</p></div>
+    </div>
+
+    <div class="stepblock">
+      <h3><span class="n">4</span><span class="en">Review your recordings on the website</span><span class="zh">在网站上查看你的录音</span></h3>
+      <div class="en"><p>Log in to the <strong>annotation-site URL</strong> with the ID assigned to your Nuna account. (You may need to capture some data first before registration succeeds.) Your recordings appear as 1-minute segments with timestamps, inline playback, and ASR previews. Choose what to share; delete anything you'd rather not include.</p></div>
+      <div class="zh"><p>用注册 Nuna 账号时分配的 ID，登录开发者提供的<strong>标注网站 URL</strong>。（可能需要先采集一段数据、后台有数据后才能成功注册。）你的录音以 1 分钟片段展示，带时间戳、回放与 ASR 预览。自行选择共享内容；不愿包含的可删除。</p></div>
+    </div>
+
+    <div class="stepblock">
+      <h3><span class="n">5</span><span class="en">Annotate by event: block, then point</span><span class="zh">按事件标注：先块、后点</span></h3>
+      <div class="en"><p>Select all segments belonging to one event and click <strong>Create Block</strong> to record scene / behavior / emotion. Annotated segments show a blue tag; open one to add finer <strong>point</strong> labels for salient sub-events and mood fluctuations. The labeled audio is saved to the developer's database, ready to become a first-person dataset.</p></div>
+      <div class="zh"><p>批量选中属于同一事件的全部片段，点击 <strong>Create Block</strong> 填写场景 / 行为 / 情绪完成块标注。已标注片段会显示蓝色标签；点击进入可继续为显著子事件与情绪波动添加更细的<strong>点标注</strong>。带标签的音频会保存到开发者数据库，可用于后续构建第一人称数据集。</p></div>
+    </div>
+
+    <div class="callout">
+      <div class="tag"><span class="en">Try it first</span><span class="zh">先试一试</span></div>
+      <p><span class="en">The <a href="../demo/index.html">live browser demo</a> reproduces the annotation workspace with sample data — no install, nothing saved — so you can see these screens before collecting anything.</span><span class="zh"><a href="../demo/index.html">在线浏览器 Demo</a> 用示例数据复现了标注工作台——无需安装、不保存任何数据——可在正式采集前先熟悉这些界面。</span></p>
+    </div>
+  </section>
+
+  <!-- 4. DEVELOPER GUIDE -->
+  <section id="developer">
+    <h2><span class="num">4</span><span class="en">Self-hosting (for developers)</span><span class="zh">自部署（面向开发者）</span></h2>
+    <p class="sub">
+      <span class="en">Run the platform on your own server to receive participants' audio and serve the annotation UI.</span>
+      <span class="zh">在你自己的服务器上运行平台，用于接收参与者音频并提供标注界面。</span>
+    </p>
+    <div class="en">
+      <p><strong>You will need:</strong> Nuna necklaces to hand out to participants; a Linux server with publicly reachable data and web ports (a lightweight server is plenty); and an ASR API (optional — a no-credentials mock provider is bundled).</p>
+      <p><strong>Data flow:</strong> necklace → phone app (push/stream) → your server.</p>
+      <h3>Deploy</h3>
+      <ol>
+        <li>Clone the release repo: <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">github.com/Kevin-Pal/nuna-edu-toolkit-release</a>.</li>
+        <li>Run <code>./scripts/init-runtime.sh</code> to create runtime directories and default env files.</li>
+        <li>Configure the two env layers: <code>compose/.env</code> (host-side, e.g. ports) and <code>runtime/env/*.env</code> (in-container, e.g. <code>SESSION_SECRET</code>, <code>CUSTOMER_SERVER_URL</code>, ASR provider).</li>
+        <li>Bring up all services with <code>./scripts/deploy.sh -d</code> (app + receiver + prelabel-service).</li>
+        <li>Export a snapshot of collected data with <code>./scripts/snapshot_and_reset.sh</code>.</li>
+      </ol>
+      <p><strong>What's stored:</strong> <code>audio/</code> holds the raw uploaded files; the SQLite <code>db</code> holds segment metadata and annotation results. Hand the <a href="#contributor">participant guide</a> above to your contributors for large-scale collection. See the <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release#quickstart-self-host" target="_blank" rel="noopener">repository README</a> for the full command reference and configuration table.</p>
+    </div>
+    <div class="zh">
+      <p><strong>你需要：</strong>发放给参与者的 Nuna 项链；一台具有公网可达的数据端口与 Web 端口的 Linux 服务器（轻量级即可）；以及一个 ASR API（可选——内置了无需凭据的 mock 提供方）。</p>
+      <p><strong>数据流：</strong>项链 → 手机 App（推流）→ 你的服务器。</p>
+      <h3>部署</h3>
+      <ol>
+        <li>克隆发布仓库：<a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release" target="_blank" rel="noopener">github.com/Kevin-Pal/nuna-edu-toolkit-release</a>。</li>
+        <li>运行 <code>./scripts/init-runtime.sh</code> 生成运行时目录与默认环境文件。</li>
+        <li>配置两层环境：<code>compose/.env</code>（宿主机侧，如端口）与 <code>runtime/env/*.env</code>（容器内，如 <code>SESSION_SECRET</code>、<code>CUSTOMER_SERVER_URL</code>、ASR 提供方）。</li>
+        <li>用 <code>./scripts/deploy.sh -d</code> 一键启动全部服务（app + receiver + prelabel-service）。</li>
+        <li>用 <code>./scripts/snapshot_and_reset.sh</code> 导出已采集数据的快照。</li>
+      </ol>
+      <p><strong>存储内容：</strong><code>audio/</code> 保存用户上传的原始音频；SQLite <code>db</code> 保存片段元信息与标注结果。将上文的<a href="#contributor">参与者指南</a>下发给贡献者以进行大规模采集。完整命令与配置项见<a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release#quickstart-self-host" target="_blank" rel="noopener">仓库 README</a>。</p>
+    </div>
+  </section>
+
+  <!-- 5. ACADEMIC VALUE -->
+  <section id="value">
+    <h2><span class="num">5</span><span class="en">What the dataset supports</span><span class="zh">数据集支持的任务</span></h2>
+    <p class="sub">
+      <span class="en">An ego-audio dataset built this way is real-world, longitudinal, first-person, and pure-audio — with emotion and event labels reported by the wearer. Here are the established, community-relevant tasks it can serve.</span>
+      <span class="zh">以这种方式构建的 ego-audio 数据集是真实世界、纵向、第一人称、纯音频的，且情绪与事件标签由佩戴者本人报告。下面是它能服务的、社区关注的成熟任务。</span>
+    </p>
+    <div class="en">
+      <p>Because annotation is recall-based, the dataset favours <em>coarse-grained</em> labels (a few labels over a long stretch) and <em>sparse fine-grained</em> labels (a handful of marked moments) — which fits these tasks well:</p>
+      <div class="tablewrap">
+        <table class="tasks">
+          <thead><tr><th>Task</th><th>Family</th><th>Support</th><th>What in the schema provides it</th></tr></thead>
+          <tbody>
+            <tr><td class="task">Acoustic Scene Classification (ASC)</td><td>Environment</td><td><span class="badge full">Direct</span></td><td>The block <strong>scene</strong> label (adjective + noun) over contiguous segments.</td></tr>
+            <tr><td class="task">Sound Event Detection (SED)</td><td>Environment</td><td><span class="badge full">Direct</span></td><td>Point <strong>environmental-fluctuation</strong> events marked within a scene (state → fluctuation).</td></tr>
+            <tr><td class="task">Voice Activity Detection (VAD)</td><td>Speech</td><td><span class="badge full">Direct</span></td><td>Per-block / per-point VAD flags (speech present vs absent).</td></tr>
+            <tr><td class="task">Human Activity Recognition (HAR)</td><td>Human-centered</td><td><span class="badge full">Direct</span></td><td>Block &amp; point <strong>behavior</strong> labels = ego-HAR, both continuous and transient actions.</td></tr>
+            <tr><td class="task">Affective Computing (AC)</td><td>Human-centered</td><td><span class="badge full">Direct</span></td><td>Block &amp; point <strong>emotion</strong> on a Valence–Arousal grid: stable tone + fluctuations, self-reported.</td></tr>
+            <tr><td class="task">First-Person Perception</td><td>Human-centered</td><td><span class="badge full">Direct</span></td><td>A pure-audio egocentric stream with Event-Ego / Emotion-Ego labels (most prior work is vision-led).</td></tr>
+            <tr><td class="task">Speech Emotion Recognition (SER)</td><td>Speech</td><td><span class="badge part">Curated subset</span></td><td>Emotion-salient utterances pre-labeled, then user-confirmed; everyday neutral speech stays sparse.</td></tr>
+            <tr><td class="task">Audio Captioning (audio↔text)</td><td>Reasoning</td><td><span class="badge part">Curated subset</span></td><td>Templated scene–event–emotion plus free-text notes → LLM-expanded captions, user-verified.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="legend"><span class="badge full">Direct</span> the schema yields labels for this task as-is. &nbsp; <span class="badge part">Curated subset</span> supported for a salient, pre-screened subset rather than dense coverage.</p>
+    </div>
+    <div class="zh">
+      <p>由于标注基于回忆，数据集更适合<em>粗粒度</em>标签（一长段时间用少量标注）与<em>稀疏的细粒度</em>标签（只标注少数关键时刻）——这恰好契合下列任务：</p>
+      <div class="tablewrap">
+        <table class="tasks">
+          <thead><tr><th>任务</th><th>类别</th><th>支持度</th><th>由标注模式中的什么提供</th></tr></thead>
+          <tbody>
+            <tr><td class="task">环境音分类（ASC）</td><td>环境感知</td><td><span class="badge full">直接</span></td><td>块标注的<strong>场景</strong>标签（形容词 + 名词），覆盖连续片段。</td></tr>
+            <tr><td class="task">声音事件检测（SED）</td><td>环境感知</td><td><span class="badge full">直接</span></td><td>场景内标注的<strong>环境波动</strong>点状事件（环境状态 → 环境波动）。</td></tr>
+            <tr><td class="task">声音活动识别（VAD）</td><td>语音</td><td><span class="badge full">直接</span></td><td>每个块/点的 VAD 标记（有无人声）。</td></tr>
+            <tr><td class="task">人类活动识别（HAR）</td><td>以人为中心</td><td><span class="badge full">直接</span></td><td>块与点的<strong>行为</strong>标签 = ego-HAR，涵盖持续与短暂动作。</td></tr>
+            <tr><td class="task">情感计算（AC）</td><td>以人为中心</td><td><span class="badge full">直接</span></td><td>块与点的<strong>情绪</strong>，基于效价–唤醒网格：稳定基调 + 波动，自我报告。</td></tr>
+            <tr><td class="task">第一人称感知</td><td>以人为中心</td><td><span class="badge full">直接</span></td><td>带 Event-Ego / Emotion-Ego 标签的纯音频第一人称流（既往工作多以视觉为主）。</td></tr>
+            <tr><td class="task">语音情感识别（SER）</td><td>语音</td><td><span class="badge part">精选子集</span></td><td>对情感特征明显的语句预标注、再由用户确认；日常中性语音保持稀疏。</td></tr>
+            <tr><td class="task">音频描述（音频↔文本）</td><td>综合推理</td><td><span class="badge part">精选子集</span></td><td>模板化的「场景–事件–情绪」加自由备注 → 大模型扩写为 caption，用户校验。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="legend"><span class="badge full">直接</span> 模式可直接产出该任务所需标签。 &nbsp; <span class="badge part">精选子集</span> 面向显著、经预筛的子集，而非稠密覆盖。</p>
+    </div>
+  </section>
+
+  <!-- 6. OPEN DIRECTIONS -->
+  <section id="open">
+    <h2><span class="num">6</span><span class="en">Open research directions</span><span class="zh">开放研究方向</span></h2>
+    <p class="sub">
+      <span class="en">Beyond the established tasks above, the same data — longitudinal, first-person, self-reported emotion — opens a few directions with real-world demand. These are opportunities, not promises.</span>
+      <span class="zh">在上述成熟任务之外，同一份数据——纵向、第一人称、情绪由本人报告——还开启了若干具有现实需求的方向。以下是研究机会，而非承诺。</span>
+    </p>
+    <div class="en">
+      <div class="opens">
+        <div class="ocard">
+          <h3>Personal mood forecasting</h3>
+          <p>Use the preceding ambient context and emotion trajectory to anticipate near-term mood shifts.</p>
+          <div class="need">Real-world need · digital wellbeing &amp; early-warning support</div>
+        </div>
+        <div class="ocard">
+          <h3>Emotion-trigger discovery</h3>
+          <p>Associate point events (a dropped glass, a difficult call) with the mood fluctuations they cause, to surface what small daily moments actually move someone's day.</p>
+          <div class="need">Real-world need · behavioral health, reflective journaling</div>
+        </div>
+        <div class="ocard">
+          <h3>Passive wellbeing sensing</h3>
+          <p>Low-burden, continuous affect and stress estimation from everyday ambient sound, validated against the wearer's own labels.</p>
+          <div class="need">Real-world need · mobile health, eldercare check-ins</div>
+        </div>
+        <div class="ocard">
+          <h3>Personalized &amp; on-device adaptation</h3>
+          <p>Per-user, longitudinal data is a natural testbed for personalizing scene/event/emotion models and for privacy-preserving (on-device / federated) learning, since collection is consent-based and per-person.</p>
+          <div class="need">Real-world need · private, on-device personalization</div>
+        </div>
+        <div class="ocard">
+          <h3>Audio life-logging &amp; day narration</h3>
+          <p>Reconstruct a structured, navigable summary of a day from ambient audio plus labels and notes — the "what happened today" view.</p>
+          <div class="need">Real-world need · memory aids, personal informatics</div>
+        </div>
+      </div>
+      <p class="legend">Selective uploads can bias a real-world dataset. Strong automated pre-labeling (VAD/SED and ASR recall) lowers the burden of keeping more data, which helps keep coverage representative — a practical concern worth designing for.</p>
+    </div>
+    <div class="zh">
+      <div class="opens">
+        <div class="ocard">
+          <h3>个人情绪预测</h3>
+          <p>利用此前的环境上下文与情绪轨迹，预判近期的情绪变化。</p>
+          <div class="need">现实需求 · 数字健康与情绪预警</div>
+        </div>
+        <div class="ocard">
+          <h3>情绪触发事件挖掘</h3>
+          <p>将点状事件（打碎的杯子、一通棘手的电话）与其引起的情绪波动关联，揭示日常中哪些小事真正影响了一个人的一天。</p>
+          <div class="need">现实需求 · 行为健康、反思式日记</div>
+        </div>
+        <div class="ocard">
+          <h3>被动健康感知</h3>
+          <p>从日常环境音中进行低负担、连续的情绪与压力估计，并以佩戴者本人的标签作校验。</p>
+          <div class="need">现实需求 · 移动健康、长者关怀</div>
+        </div>
+        <div class="ocard">
+          <h3>个性化与端侧适配</h3>
+          <p>按用户、纵向的数据是个性化场景/事件/情绪模型与隐私保护（端侧 / 联邦）学习的天然试验场——因为采集本身基于知情同意、以个人为单位。</p>
+          <div class="need">现实需求 · 隐私友好的端侧个性化</div>
+        </div>
+        <div class="ocard">
+          <h3>音频生活日志与日记叙事</h3>
+          <p>由环境音加标签与备注，重建一份结构化、可浏览的「今天发生了什么」日记摘要。</p>
+          <div class="need">现实需求 · 记忆辅助、个人信息学</div>
+        </div>
+      </div>
+      <p class="legend">选择性上传会给真实世界数据集带来偏差。强大的自动预标注（VAD/SED 与 ASR 回忆）能降低保留更多数据的负担，有助于让覆盖更具代表性——这是值得在设计中考量的现实问题。</p>
+    </div>
+  </section>
+
+  <div class="doc-foot">
+    <div class="en">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>, The Chinese University of Hong Kong. &nbsp;Contact: <a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>. &nbsp;Licensed under PolyForm Noncommercial 1.0.0 (source-available; free for non-commercial &amp; research use).</div>
+    <div class="zh">Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing · <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener">AIoT Lab</a>，香港中文大学。&nbsp;联系：<a href="mailto:pa025@ie.cuhk.edu.hk">pa025@ie.cuhk.edu.hk</a>。&nbsp;采用 PolyForm Noncommercial 1.0.0 许可（源码可得；非商业与研究用途免费）。</div>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var body = document.body;
+    var buttons = document.querySelectorAll('.langtoggle button');
+    function setLang(lang) {
+      body.classList.remove('lang-en', 'lang-zh');
+      body.classList.add('lang-' + lang);
+      document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+      buttons.forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.dataset.lang); });
+    });
+  })();
+</script>
+</body>
+</html>

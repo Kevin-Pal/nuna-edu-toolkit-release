@@ -10,6 +10,7 @@ control: they choose which recordings to share and can delete the rest.
 - 🌐 **Project site & demo:** https://kevin-pal.github.io/nuna-edu-toolkit-release/
 - 🕹️ **Live demo (no install):** https://kevin-pal.github.io/nuna-edu-toolkit-release/demo/
 - 📱 **Data-collection app (Android, internal beta):** https://www.pgyer.com/nuna-android-cas
+- 📖 **Documentation (English / 中文):** https://kevin-pal.github.io/nuna-edu-toolkit-release/docs/
 
 > The hosted demo runs entirely in your browser with sample data — nothing is saved.
 > Self-host this repo for the full experience.
@@ -26,6 +27,17 @@ control: they choose which recordings to share and can delete the rest.
 - **Privacy-first:** participants pick what to share and can delete recordings.
 - **Self-hostable** with Docker Compose; SQLite by default, config fully externalized (12-factor).
 - **Bilingual UI** (English / 简体中文).
+
+## Documentation
+
+A bilingual (English / 简体中文) guide is published on the project site:
+**[Documentation »](https://kevin-pal.github.io/nuna-edu-toolkit-release/docs/)**
+
+It covers the workflow this toolkit is built around — a **self-recall annotation** method for
+building **first-person (ego) audio datasets** — including how participants collect and annotate
+data, how to self-host the platform, the block + point label schema, and the research tasks the
+resulting dataset supports (ASC, SED, VAD, HAR, affective computing, first-person perception, and
+more) plus open research directions.
 
 ## Architecture
 
@@ -106,8 +118,6 @@ Get one from [thingx.ai](https://www.thingx.ai/products/nuna-emotion-tracking-pe
 
 Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing.
 [AIoT Lab](https://aiot.ie.cuhk.edu.hk/), The Chinese University of Hong Kong.
-
-A sibling project to (not part of) NunaPin; both use the Nuna wearable.
 
 **Contact:** Anlan Peng — [pa025@ie.cuhk.edu.hk](mailto:pa025@ie.cuhk.edu.hk) · [AIoT Lab, CUHK](https://aiot.ie.cuhk.edu.hk/)
 
