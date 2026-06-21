@@ -15,28 +15,20 @@ async def stream_audio(audio_id: int, request: Request, user: models.User = Depe
     if not audio:
         raise HTTPException(status_code=404, detail="Audio not found")
     
-    # 2. Serve file
-    # file_path is defined in DB usually relative to runtime root or absolute
-    # In models.py we said "relative to runtime" recommendation, but let's check
-    # We assume 'file_path' is relative to /runtime/audio/
-    
+    # 2. Resolve the on-disk path (stored relative to the audio root, or absolute).
     runtime_audio_dir = os.environ.get("RUNTIME_AUDIO_DIR", "/runtime/data/audio")
-    
-    # If the stored path is already absolute, use it. If relative, join.
+    runtime_root = os.path.abspath(runtime_audio_dir)
     if audio.file_path.startswith("/"):
         full_path = audio.file_path
     else:
         full_path = os.path.join(runtime_audio_dir, audio.file_path)
-    
-    # Security check: prevent path traversal
-    # (Simple check: must be inside runtime dir)
-    if not os.path.abspath(full_path).startswith(os.path.abspath(runtime_audio_dir)):
-        # Allow dev override if local
-        pass 
+
+    # Confine to the audio root — reject any path traversal.
+    full_path = os.path.abspath(full_path)
+    if os.path.commonpath([full_path, runtime_root]) != runtime_root:
+        raise HTTPException(status_code=400, detail="Invalid audio path")
 
     if not os.path.exists(full_path):
-        # Fallback for dev: return a dummy placeholder mp3 if in dev mode?
-        # Or just 404
         return Response(status_code=404, content="File not found on disk")
-        
+
     return FileResponse(full_path, media_type="audio/mpeg", filename=f"segment_{audio_id}.mp3")

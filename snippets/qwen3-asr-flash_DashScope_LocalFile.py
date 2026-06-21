@@ -9,7 +9,7 @@ dashscope.base_http_api_url = 'https://dashscope.aliyuncs.com/api/v1'
 audio_file_path = "file:///path/to/nuna-edu-toolkit/runtime/data/audio/<user_id>/<date>/<segment>.wav"
 
 messages = [
-    {"role": "user", "content": [{"audio": audio_file_path}]},   # content为用户消息的内容，仅允许设置一组消息 （NOTE：一会可以试试能不能messages里放多条消息然后并发识别）——完全不允许多条消息，只能多次调用
+    {"role": "user", "content": [{"audio": audio_file_path}]},   # content 为用户消息内容；每次调用仅允许一组消息，并发识别需多次调用
 ]
 response = dashscope.MultiModalConversation.call(
     # 新加坡/美国地域和北京地域的API Key不同。获取API Key：https://help.aliyun.com/zh/model-studio/get-api-key
@@ -21,7 +21,7 @@ response = dashscope.MultiModalConversation.call(
     result_format="message",
     asr_options={
         # "language": "zh", # 可选，若已知音频的语种，可通过该参数指定待识别语种，以提升识别准确率
-        "enable_itn":False  # 可选，是否开启反规范化，默认为True，开启后会将数字、日期等内容进行反规范化处理，例如“2024年6月”会被识别为“2024年6月”，关闭后则会被识别为“二零二四年六月”
+        "enable_itn":False  # 可选，逆文本规范化(ITN)，默认 True：将口语化的数字/日期转为书面形式，例如“二零二四年六月”→“2024年6月”；设为 False 则保留口语形式
     }
 )
 print(response)

@@ -27,7 +27,7 @@ kevin-pal.github.io/nuna-edu-toolkit-release
 ▶️ 在线 Demo + 源码 👇
 kevin-pal.github.io/nuna-edu-toolkit-release
 
-`#FirstPersonAudio #MobileSensing #UbiComp #AudioML #第一人称音频 #开源工具 #ThingX #CUHK`
+`#FirstPersonAudio #MobileSensing #UbiComp #AudioML #第一人称音频 #源码可得 #ThingX #CUHK`
 
 ---
 
@@ -69,7 +69,7 @@ Try the live demo (no install) or self-host the full stack:
 
 👋 在 **MobiSys 2026** 现场的同行，欢迎来交流第一人称音频数据集～
 
-`#FirstPersonAudio #MobileSensing #UbiComp #AffectiveComputing #AudioML #OpenScience #ThingX #CUHK #第一人称音频 #可穿戴 #开源`
+`#FirstPersonAudio #MobileSensing #UbiComp #AffectiveComputing #AudioML #OpenScience #ThingX #CUHK #第一人称音频 #可穿戴 #源码可得`
 
 ---
 

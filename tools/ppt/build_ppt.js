@@ -1,7 +1,6 @@
 /* Build the one-page Nuna-Edu-Toolkit promo slide.
- * Styled to match the NunaPin_Demo deck template: 16:9 (13.333" x 7.5"),
- * deep-purple banner + Times New Roman serif, tri-color footer bar.
- * Embeds the hub QR (-> landing page).
+ * 16:9 (13.333" x 7.5"), deep-purple banner + Times New Roman serif,
+ * tri-color footer bar. Embeds the hub QR (-> landing page).
  *
  *   cd tools/ppt && npm install && node build_ppt.js
  *
@@ -15,7 +14,7 @@ const QR = path.join(ROOT, "site", "assets", "qr", "site.png"); // hub QR -> lan
 const LAB = path.join(ROOT, "site", "assets", "img", "aiot-lab-logo.png"); // AIoT Lab logo
 const OUT = path.join(ROOT, "promo", "Nuna-Edu-Toolkit-slide.pptx");
 
-// NunaPin_Demo template palette
+// Deck template palette
 const PURPLE = "740E6C", DPURPLE = "570B51",
       WHITE = "FFFFFF", INK = "1A1A1A", MUTED = "6B5B68",
       CARD = "F7EFF6", CARDLINE = "D9BBD5";

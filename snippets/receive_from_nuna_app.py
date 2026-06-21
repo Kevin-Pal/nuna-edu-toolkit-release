@@ -24,7 +24,6 @@ async def upload_audio(
         # 读取 metadata 文件内容（它是 text/plain 的 JSON 字符串）
         metadata_content = await metadata.read()
         metadata_str = metadata_content.decode('utf-8')
-        print(f"[DEBUG] RAW METADATA: {metadata_str}")  #打印meta_string 内容
         meta = json.loads(metadata_str)
 
         # 验证字段
