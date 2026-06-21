@@ -12,14 +12,14 @@ authors:
   - given-names: Ruihan
     family-names: Xie
     affiliation: "AIoT Lab, The Chinese University of Hong Kong"
-  - given-names: Yihang
-    family-names: Su
-    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
   - given-names: Siyang
     family-names: Jiang
     affiliation: "AIoT Lab, The Chinese University of Hong Kong"
   - given-names: Zhiyuan
     family-names: Xie
+    affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+  - given-names: Yihang
+    family-names: Su
     affiliation: "AIoT Lab, The Chinese University of Hong Kong"
   - given-names: Zhenyu
     family-names: Yan
@@ -27,7 +27,13 @@ authors:
   - given-names: Guoliang
     family-names: Xing
     affiliation: "AIoT Lab, The Chinese University of Hong Kong"
+version: "1.0.0"
 date-released: "2026-06-21"
+doi: 10.5281/zenodo.20788304
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20788304
+    description: Concept DOI — always resolves to the latest version
 license: PolyForm-Noncommercial-1.0.0
 url: "https://kevin-pal.github.io/nuna-edu-toolkit-release/"
 repository-code: "https://github.com/Kevin-Pal/nuna-edu-toolkit-release"
@@ -36,5 +42,7 @@ keywords:
   - egocentric audio
   - affective computing
   - acoustic scene classification
+  - sound event detection
   - wearable sensing
   - dataset
+  - annotation

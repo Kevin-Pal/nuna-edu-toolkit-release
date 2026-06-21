@@ -1,0 +1,25 @@
+{
+  "title": "Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting and Annotating First-Person Audio Datasets",
+  "description": "A self-hostable, source-available platform for collecting and annotating first-person ambient audio captured by the Nuna wearable, and turning it into research datasets. From the AIoT Lab, The Chinese University of Hong Kong. Source-available under the PolyForm Noncommercial 1.0.0 license (non-commercial and research use only; commercial use requires a separate license).",
+  "upload_type": "software",
+  "access_right": "open",
+  "creators": [
+    { "name": "Peng, Anlan", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Xie, Ruihan", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Jiang, Siyang", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Xie, Zhiyuan", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Su, Yihang", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Yan, Zhenyu", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" },
+    { "name": "Xing, Guoliang", "affiliation": "AIoT Lab, The Chinese University of Hong Kong" }
+  ],
+  "keywords": [
+    "first-person audio",
+    "egocentric audio",
+    "affective computing",
+    "acoustic scene classification",
+    "sound event detection",
+    "wearable sensing",
+    "dataset",
+    "annotation"
+  ]
+}

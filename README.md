@@ -2,6 +2,8 @@
 
 **A self-hostable toolkit for collecting and annotating first-person ambient audio — and turning it into research datasets.**
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20788304.svg)](https://doi.org/10.5281/zenodo.20788304)
+
 Nuna-Edu-Toolkit is an open toolkit from the AIoT Lab at The Chinese University of Hong Kong. Audio captured by the *Nuna* wearable (a smart necklace) is streamed
 to a server you control, sliced into 1-minute segments, optionally pre-labeled with ASR,
 and annotated through a web app using a flexible, event-driven schema. Participants stay in
@@ -118,7 +120,7 @@ Get one from [thingx.ai](https://www.thingx.ai/products/nuna-emotion-tracking-pe
 
 ## Credits
 
-Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Yihang Su, Siyang Jiang, Zhiyuan Xie, Zhenyu Yan, Guoliang Xing.
+Nuna-Edu-Toolkit — Anlan Peng, Ruihan Xie, Siyang Jiang, Zhiyuan Xie, Yihang Su, Zhenyu Yan, Guoliang Xing.
 [AIoT Lab](https://aiot.ie.cuhk.edu.hk/), The Chinese University of Hong Kong.
 
 **Contact:** Anlan Peng — [pa025@ie.cuhk.edu.hk](mailto:pa025@ie.cuhk.edu.hk) · [AIoT Lab, CUHK](https://aiot.ie.cuhk.edu.hk/)
@@ -132,11 +134,12 @@ work, **please cite this work.** GitHub's "Cite this repository" button (backed 
 
 ```bibtex
 @software{Peng_Nuna_Edu_Toolkit_2026,
-  author = {Peng, Anlan and Xie, Ruihan and Su, Yihang and Jiang, Siyang and
-            Xie, Zhiyuan and Yan, Zhenyu and Xing, Guoliang},
+  author = {Peng, Anlan and Xie, Ruihan and Jiang, Siyang and Xie, Zhiyuan and
+            Su, Yihang and Yan, Zhenyu and Xing, Guoliang},
   title  = {{Nuna-Edu-Toolkit: A Self-Hostable Platform for Collecting and
             Annotating First-Person Audio Datasets}},
   year   = {2026},
+  doi    = {10.5281/zenodo.20788304},
   url    = {https://github.com/Kevin-Pal/nuna-edu-toolkit-release},
   note   = {AIoT Lab, The Chinese University of Hong Kong.
             Source-available under PolyForm Noncommercial 1.0.0}
