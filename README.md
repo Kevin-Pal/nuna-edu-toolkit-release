@@ -143,10 +143,8 @@ work, **please cite this work.** GitHub's "Cite this repository" button (backed 
 }
 ```
 
-The research directions in the documentation are the authors' original, previously unpublished
-ideas, shared to invite collaboration — please cite them and feel free to reach out. The code, the
-documentation text, and datasets produced with the toolkit are © 2026 the authors; commercial use
-requires a separate license (see below).
+The code, the documentation, and datasets produced with the toolkit are © 2026 the authors;
+commercial use requires a separate license (see below).
 
 ## License
 
