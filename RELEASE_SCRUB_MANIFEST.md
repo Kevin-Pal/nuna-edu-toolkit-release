@@ -18,6 +18,7 @@ cannot leak via this release — **but live credentials must still be rotated** 
 | `AGENTS.md` | Internal AI-agent development spec (~20 KB); dev metadata not meant for public. | MEDIUM |
 | `.vscode/` | Editor settings; dev metadata. | LOW |
 | `docs/to-do-list.md` | Internal TODO notes (incl. a plan to store AWS keys); dev metadata. | MEDIUM |
+| `docs/` (all design notes) | Original internal design specs, Chinese-only and dev-process flavored; superseded by the public bilingual docs at `site/docs/`. Removed from the public release. (No secrets — see §3.) | LOW |
 | `compose/.env`, `runtime/env/app.env`, `runtime/env/stack.env`, `runtime/env/prelabel.env` | Tracked environment files. Replaced with `*.env.example` templates; `.gitignore` updated so real env files are never tracked again. (Values were non-secret placeholders — see §3.) | MEDIUM |
 | `.git/` (source history) | Not carried into the release; the release is a clean single commit. | — |
 | `runtime/env/gateway.env` | Already deleted upstream; existed only in source history; absent from release. | LOW |
@@ -28,7 +29,6 @@ cannot leak via this release — **but live credentials must still be rotated** 
 |---|---|---|
 | `app/backend/routers/auth.py:76` | default `http://120.79.x.x (redacted):9000/` (real server IP) | `http://localhost:9000/` |
 | `app/backend/routers/tasks.py:122` | default `http://120.79.x.x (redacted):9000/` | `http://localhost:9000/` |
-| `docs/app-design.md:3,4,12` | real IP `120.79.x.x (redacted)`; real test userId `<participant-id>` | `<SERVER_IP>`; `<TEST_USER_ID>` + public-release note (also flags the removed S3 snippet) |
 | `snippets/qwen3-asr-flash_DashScope_LocalFile.py:9` | `/home/<dev-user>/nuna-audio-lab-app/...<participant-id>/20260318/...wav` (dev username + real userId) | `/path/to/nuna-edu-toolkit/runtime/data/audio/<user_id>/<date>/<segment>.wav` |
 | `snippets/db_read.py:8` | `# filepath: /home/<dev-user>/nuna-audio-lab-app/...` (dev username) | `# filepath: /path/to/nuna-edu-toolkit/snippets/db_read.py` |
 
@@ -52,4 +52,3 @@ cannot leak via this release — **but live credentials must still be rotated** 
 
 - **pgyer download link** `https://www.pgyer.com/nuna-android-cas` — public; this is the app we are promoting.
 - **`/thingx/api/file/upload/audio`** endpoint — part of the wearable→server upload contract, not a secret.
-- **Chinese design docs** under `docs/` — kept as developer reference (IP/userid scrubbed).

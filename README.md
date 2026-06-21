@@ -98,7 +98,6 @@ compose/             Docker Compose files + .env.example
 runtime/             Runtime data/env/logs (git-ignored; structure via .gitkeep)
 scripts/             init-runtime / deploy / snapshot helpers
 snippets/            Reference code snippets (ASR call, DB inspector, receiver)
-docs/                Design notes (original spec; Chinese)
 site/                Promotional GitHub Pages site + static browser demo + bilingual docs
 tools/               Reproducible generators (QR codes, promo poster/OG image, one-page PPT)
 promo/               Generated promo assets (one-page slide, social copy, poster)
