@@ -22,14 +22,15 @@
       radial-gradient(900px 380px at 82% -12%, rgba(15,158,213,.30), transparent 60%),
       linear-gradient(158deg,#0E2841 0%,#14405e 52%,#156082 100%);
   }
-  .badge{
-    display:inline-flex; align-items:center; gap:12px;
-    background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.30);
-    color:#eaf6ff; padding:10px 18px 10px 10px; border-radius:999px;
-    font-size:23px; font-weight:600; letter-spacing:.2px;
+  .cobrand{
+    display:inline-flex; align-items:center; gap:16px;
+    background:#fff; border-radius:999px; padding:12px 24px;
+    box-shadow:0 8px 22px rgba(7,23,41,.22);
   }
-  .badge .chip{ width:40px; height:40px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
-  .badge .chip img{ width:30px; height:30px; display:block; }
+  .cobrand img.thingx{ height:26px; width:auto; display:block; }
+  .cobrand img.aiot{ height:40px; width:auto; display:block; }
+  .cobrand .x{ font-size:24px; color:#9fb1c0; font-weight:400; }
+  .cobrand .lab{ font-size:23px; font-weight:700; color:var(--navy); letter-spacing:.2px; }
   .title{ font-size:96px; font-weight:800; letter-spacing:-2.5px; line-height:1; margin-top:34px; }
   .tagline{ font-size:42px; font-weight:600; line-height:1.18; margin-top:26px; max-width:590px; color:#eaf3fa; }
   .tagline .hl{ color:var(--peach); }
@@ -76,7 +77,7 @@
 <body>
   <div class="poster">
     <div class="hero">
-      <div class="badge"><span class="chip"><img src="../../site/assets/img/aiot-lab-logo.svg"></span> AIoT Lab · The Chinese University of Hong Kong</div>
+      <div class="cobrand"><img class="thingx" src="../../site/assets/img/thingx-logo.png"><span class="x">×</span><img class="aiot" src="../../site/assets/img/aiot-lab-logo.svg"><span class="lab">AIoT Lab · CUHK</span></div>
       <div class="title">Nuna-Edu-Toolkit</div>
       <div class="tagline">Turn everyday ambient sound into <span class="hl">research-ready audio datasets</span>.</div>
       <div class="descr">A self-hostable, source-available platform for collecting &amp; annotating first-person audio from the Nuna wearable.</div>
