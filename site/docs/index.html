@@ -19,9 +19,7 @@
   .docbar .home{ font-weight:700; color:var(--navy); text-decoration:none; letter-spacing:-.3px; }
   .docbar .spacer{ flex:1; }
   .cobrand-mini{ display:inline-flex; align-items:center; gap:9px; }
-  .cobrand-mini img.thingx{ height:16px; width:auto; display:block; }
   .cobrand-mini img.aiot{ height:24px; width:auto; display:block; }
-  .cobrand-mini .x{ color:#9fb1c0; font-size:14px; }
   .cobrand-mini .lab{ font-size:13px; font-weight:700; color:var(--navy); }
   @media (max-width:680px){ .cobrand-mini .lab{ display:none; } }
   .langtoggle{ display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
@@ -119,8 +117,6 @@
     <a class="home" href="../index.html">nuna-edu-toolkit</a>
     <span class="spacer"></span>
     <span class="cobrand-mini">
-      <a href="https://www.thingx.ai/" target="_blank" rel="noopener"><img class="thingx" src="../assets/img/thingx-logo.png" alt="ThingX"></a>
-      <span class="x">×</span>
       <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener"><img class="aiot" src="../assets/img/aiot-lab-logo.svg" alt=""></a>
       <span class="lab">AIoT Lab · CUHK</span>
     </span>
@@ -158,16 +154,16 @@
   <section id="overview">
     <h2><span class="num">1</span><span class="en">Overview</span><span class="zh">概述</span></h2>
     <div class="en">
-      <p>Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating first-person ambient audio. Sound captured by the <strong>Nuna</strong> wearable (a commercial smart necklace) is streamed to a server <em>you</em> control, sliced into 1-minute segments, optionally pre-labeled with ASR for fast recall, and annotated through a web app using a flexible, event-driven schema. Participants stay in control: they choose which recordings to share and can delete the rest.</p>
-      <p>The toolkit has two parts: a <strong>mobile collection app</strong> that streams audio from the wearable to your server, and <strong>Nuna Audio Lab</strong> — the web app where you review and annotate it ("Lab" = <em>labeling</em>). End to end: Nuna wearable → phone → your server → label &amp; export. (You'll see the "Nuna Audio Lab" name in the app and the live demo.)</p>
+      <p>Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating first-person ambient audio. Sound captured by a <strong>wearable device</strong> (a commercially available smart pendant, modified by us to enable audio recording — the off-the-shelf product does not record audio) is streamed to a server <em>you</em> control, sliced into 1-minute segments, optionally pre-labeled with ASR for fast recall, and annotated through a web app using a flexible, event-driven schema. Participants stay in control: they choose which recordings to share and can delete the rest.</p>
+      <p>The toolkit has two parts: a <strong>mobile collection app</strong> that streams audio from the wearable to your server, and <strong>Audio Lab</strong> — the web app where you review and annotate it ("Lab" = <em>labeling</em>). End to end: wearable device → phone → your server → label &amp; export.</p>
       <div class="callout">
         <div class="tag">The method this toolkit is built around</div>
         <p>This documentation describes <strong>one</strong> way to use the toolkit — and the one it is designed around: a <strong>self-recall annotation</strong> workflow for building <strong>first-person (ego) audio datasets</strong>. The person who wore the device reviews their own day (helped by timestamps and ASR previews) and labels scene, event, and emotion <em>from memory</em>. Because the annotations come from the person who actually lived the moment, the emotion and event ground-truth is genuinely first-person and self-reported — not a third party's guess. The label schema is web-based and easy to swap, so the same platform can serve other annotation tasks too.</p>
       </div>
     </div>
     <div class="zh">
-      <p>Nuna-Edu-Toolkit 是一个可自部署、源码可得（source-available）的平台，用于采集与标注第一人称环境音频。由 <strong>Nuna</strong> 智能项链（一款成熟的商用可穿戴设备）采集的声音会被推流到<em>你自己</em>掌控的服务器，切分为 1 分钟的片段，可选地用 ASR 预标注以便快速回忆，并通过一个 Web App、以灵活的事件驱动模式进行标注。参与者始终掌握主动权：自行选择愿意共享哪些录音，其余可删除。</p>
-      <p>工具链由两部分组成：<strong>手机采集 App</strong>（将可穿戴设备的音频推流到你的服务器），以及 <strong>Nuna Audio Lab</strong>——用于回看与标注的网页应用（其中“Lab”取 <em>labeling／标注</em> 之意）。整条链路为：Nuna 项链 → 手机 → 你的服务器 → 标注与导出。（你会在应用与在线 Demo 中看到 “Nuna Audio Lab” 这一名称。）</p>
+      <p>Nuna-Edu-Toolkit 是一个可自部署、源码可得（source-available）的平台，用于采集与标注第一人称环境音频。由<strong>可穿戴设备</strong>（一款成熟的商用智能吊坠，由我们改装以支持录音功能——市售原版不具备录音功能）采集的声音会被推流到<em>你自己</em>掌控的服务器，切分为 1 分钟的片段，可选地用 ASR 预标注以便快速回忆，并通过一个 Web App、以灵活的事件驱动模式进行标注。参与者始终掌握主动权：自行选择愿意共享哪些录音，其余可删除。</p>
+      <p>工具链由两部分组成：<strong>手机采集 App</strong>（将可穿戴设备的音频推流到你的服务器），以及 <strong>Audio Lab</strong>——用于回看与标注的网页应用（其中”Lab”取 <em>labeling／标注</em> 之意）。整条链路为：可穿戴设备 → 手机 → 你的服务器 → 标注与导出。</p>
       <div class="callout">
         <div class="tag">本工具围绕的核心方法</div>
         <p>本文档描述的是该工具的<strong>一种</strong>用法，也是它最初为之设计的用法：一套用于构建<strong>第一人称（ego）音频数据集</strong>的<strong>用户自回忆标注</strong>流程。佩戴设备的人借助时间戳与 ASR 预览回顾自己的一天，<em>凭记忆</em>标注场景、事件与情绪。由于标注来自亲历者本人，情绪与事件的 ground-truth 是真正第一人称、自我报告的，而非第三方的猜测。标注模式基于网页、易于替换，因此同一平台也可服务于其他标注任务。</p>
@@ -242,14 +238,14 @@
   <section id="contributor">
     <h2><span class="num">3</span><span class="en">Collecting &amp; annotating (for participants)</span><span class="zh">采集与标注（面向参与者）</span></h2>
     <p class="sub">
-      <span class="en">What a data contributor does, end to end. You'll need a Nuna necklace, an Android phone, and two URLs from your study's developer: the annotation-site URL and the data-upload URL.</span>
-      <span class="zh">数据贡献者的完整流程。你需要：一条 Nuna 项链、一部安卓手机，以及由研究方（开发者）提供的两个地址：标注网站 URL 与数据上传 URL。</span>
+      <span class="en">What a data contributor does, end to end. You'll need a wearable device, an Android phone, and two URLs from your study's developer: the annotation-site URL and the data-upload URL.</span>
+      <span class="zh">数据贡献者的完整流程。你需要：一个可穿戴设备、一部安卓手机，以及由研究方（开发者）提供的两个地址：标注网站 URL 与数据上传 URL。</span>
     </p>
 
     <div class="stepblock">
       <h3><span class="n">1</span><span class="en">Install the data-collection app</span><span class="zh">安装数据采集 App</span></h3>
-      <div class="en"><p>The public app-store build of the Nuna app does not upload or save audio. Install the internal-beta data-collection build instead: <a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a> (Android only).</p></div>
-      <div class="zh"><p>应用市场的 Nuna 发行版没有音频上传/保存功能，请安装专用于数据采集的内测版：<a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a>（仅支持安卓）。</p></div>
+      <div class="en"><p>The public app-store build of the companion app does not upload or save audio. Install the internal-beta data-collection build instead: <a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a> (Android only).</p></div>
+      <div class="zh"><p>应用市场的发行版没有音频上传/保存功能，请安装专用于数据采集的内测版：<a href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">pgyer.com/nuna-android-cas</a>（仅支持安卓）。</p></div>
     </div>
 
     <div class="stepblock">
@@ -260,14 +256,14 @@
 
     <div class="stepblock">
       <h3><span class="n">3</span><span class="en">Point uploads at your study's server</span><span class="zh">将上传指向研究方服务器</span></h3>
-      <div class="en"><p>So that audio goes to the developer's server (not Nuna's), set the upload server URL in the app to the <strong>data-upload URL</strong> your developer gave you, and save.</p></div>
-      <div class="zh"><p>为了让音频上传到开发者服务器（而非 Nuna 官方服务器），在 App 中将上传服务器地址手动配置为开发者提供的<strong>数据上传 URL</strong>并保存。</p></div>
+      <div class="en"><p>So that audio goes to the developer's server (not the device maker's), set the upload server URL in the app to the <strong>data-upload URL</strong> your developer gave you, and save.</p></div>
+      <div class="zh"><p>为了让音频上传到开发者服务器（而非设备厂商服务器），在 App 中将上传服务器地址手动配置为开发者提供的<strong>数据上传 URL</strong>并保存。</p></div>
     </div>
 
     <div class="stepblock">
       <h3><span class="n">4</span><span class="en">Review your recordings on the website</span><span class="zh">在网站上查看你的录音</span></h3>
-      <div class="en"><p>Log in to the <strong>annotation-site URL</strong> with the ID assigned to your Nuna account. (You may need to capture some data first before registration succeeds.) Your recordings appear as 1-minute segments with timestamps, inline playback, and ASR previews. Choose what to share; delete anything you'd rather not include.</p></div>
-      <div class="zh"><p>用注册 Nuna 账号时分配的 ID，登录开发者提供的<strong>标注网站 URL</strong>。（可能需要先采集一段数据、后台有数据后才能成功注册。）你的录音以 1 分钟片段展示，带时间戳、回放与 ASR 预览。自行选择共享内容；不愿包含的可删除。</p></div>
+      <div class="en"><p>Log in to the <strong>annotation-site URL</strong> with the ID assigned to your account. (You may need to capture some data first before registration succeeds.) Your recordings appear as 1-minute segments with timestamps, inline playback, and ASR previews. Choose what to share; delete anything you'd rather not include.</p></div>
+      <div class="zh"><p>用注册账号时分配的 ID，登录开发者提供的<strong>标注网站 URL</strong>。（可能需要先采集一段数据、后台有数据后才能成功注册。）你的录音以 1 分钟片段展示，带时间戳、回放与 ASR 预览。自行选择共享内容；不愿包含的可删除。</p></div>
     </div>
 
     <div class="stepblock">
@@ -290,7 +286,7 @@
       <span class="zh">在你自己的服务器上运行平台，用于接收参与者音频并提供标注界面。</span>
     </p>
     <div class="en">
-      <p><strong>You will need:</strong> Nuna necklaces to hand out to participants; a Linux server with publicly reachable data and web ports (a lightweight server is plenty); and an ASR API (optional — a no-credentials mock provider is bundled).</p>
+      <p><strong>You will need:</strong> Wearable devices (modified smart pendants) to hand out to participants; a Linux server with publicly reachable data and web ports (a lightweight server is plenty); and an ASR API (optional — a no-credentials mock provider is bundled).</p>
       <p><strong>Data flow:</strong> necklace → phone app (push/stream) → your server.</p>
       <h3>Deploy</h3>
       <ol>
@@ -303,7 +299,7 @@
       <p><strong>What's stored:</strong> <code>audio/</code> holds the raw uploaded files; the SQLite <code>db</code> holds segment metadata and annotation results. Hand the <a href="#contributor">participant guide</a> above to your contributors for large-scale collection. See the <a href="https://github.com/Kevin-Pal/nuna-edu-toolkit-release#quickstart-self-host" target="_blank" rel="noopener">repository README</a> for the full command reference and configuration table.</p>
     </div>
     <div class="zh">
-      <p><strong>你需要：</strong>发放给参与者的 Nuna 项链；一台具有公网可达的数据端口与 Web 端口的 Linux 服务器（轻量级即可）；以及一个 ASR API（可选——内置了无需凭据的 mock 提供方）。</p>
+      <p><strong>你需要：</strong>发放给参与者的可穿戴设备（改装后的智能吊坠）；一台具有公网可达的数据端口与 Web 端口的 Linux 服务器（轻量级即可）；以及一个 ASR API（可选——内置了无需凭据的 mock 提供方）。</p>
       <p><strong>数据流：</strong>项链 → 手机 App（推流）→ 你的服务器。</p>
       <h3>部署</h3>
       <ol>

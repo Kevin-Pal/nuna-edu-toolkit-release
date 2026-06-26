@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuna-Edu-Toolkit — First-Person Audio Data Collection &amp; Annotation</title>
-    <meta name="description" content="A self-hostable toolkit for collecting and annotating first-person ambient audio from the Nuna wearable — and turning it into research datasets. An open toolkit from the AIoT Lab, CUHK.">
+    <meta name="description" content="A self-hostable toolkit for collecting and annotating first-person ambient audio from a wearable device — and turning it into research datasets. An open toolkit from the AIoT Lab, CUHK.">
 
     <!-- Open Graph / social link-preview card -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Nuna-Edu-Toolkit">
     <meta property="og:title" content="Nuna-Edu-Toolkit — first-person audio datasets">
-    <meta property="og:description" content="A self-hostable, source-available platform to collect & annotate first-person ambient audio — and turn it into research datasets. A ThingX × AIoT Lab @ CUHK collaboration.">
+    <meta property="og:description" content="A self-hostable, source-available platform to collect & annotate first-person ambient audio — and turn it into research datasets. From the AIoT Lab @ CUHK.">
     <meta property="og:url" content="https://kevin-pal.github.io/nuna-edu-toolkit-release/">
     <meta property="og:image" content="https://kevin-pal.github.io/nuna-edu-toolkit-release/assets/og-image.png">
     <meta property="og:image:width" content="2400">
@@ -18,7 +18,7 @@
     <meta property="og:image:alt" content="Nuna-Edu-Toolkit — turn everyday ambient sound into research-ready, first-person audio datasets.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nuna-Edu-Toolkit — first-person audio datasets">
-    <meta name="twitter:description" content="Self-hostable, source-available toolkit to collect & annotate first-person ambient audio. A ThingX × AIoT Lab @ CUHK collaboration.">
+    <meta name="twitter:description" content="Self-hostable, source-available toolkit to collect & annotate first-person ambient audio. From the AIoT Lab @ CUHK.">
     <meta name="twitter:image" content="https://kevin-pal.github.io/nuna-edu-toolkit-release/assets/og-image.png">
 
     <link rel="stylesheet" href="assets/css/landing.css">
@@ -41,14 +41,12 @@
     <!-- HERO -->
     <header class="hero">
         <div class="cobrand">
-            <a href="https://www.thingx.ai/" target="_blank" rel="noopener"><img class="thingx" src="assets/img/thingx-logo.png" alt="ThingX"></a>
-            <span class="x">×</span>
             <a href="https://aiot.ie.cuhk.edu.hk/" target="_blank" rel="noopener"><img class="aiot" src="assets/img/aiot-lab-logo.svg" alt=""><span class="lab">AIoT Lab &middot; CUHK</span></a>
         </div>
         <h1>Turn everyday ambient sound into <span class="accent">research-ready audio datasets</span>.</h1>
         <p class="lead">
             Nuna-Edu-Toolkit is a self-hostable, source-available platform for collecting and annotating
-            first-person audio. The Nuna wearable streams sound to <em>your</em> server, where it is
+            first-person audio. A wearable device streams sound to <em>your</em> server, where it is
             sliced into 1-minute segments, transcribed with ASR for fast recall, and labeled through a
             flexible, event-driven schema — with participants choosing what to share.
         </p>
@@ -59,22 +57,19 @@
         </div>
     </header>
 
-    <!-- THE NUNA WEARABLE -->
+    <!-- THE WEARABLE DEVICE -->
     <section id="device">
         <div class="device-card">
-            <div class="device-photo">
-                <img src="assets/img/nuna-pendant.png" alt="Nuna emotion-tracking pendant by ThingX">
-            </div>
             <div class="device-info">
                 <div class="kicker">The hardware</div>
-                <h2>Powered by the Nuna pendant</h2>
-                <p>Nuna-Edu-Toolkit collects first-person audio from <strong>Nuna</strong> — ThingX's
-                AI emotion-tracking pendant. Lightweight and built for all-day wear, it streams ambient
-                sound to <em>your own</em> server, ready for collection and annotation.</p>
+                <h2>A modified wearable device</h2>
+                <p>Nuna-Edu-Toolkit collects first-person audio from a commercially available smart pendant.
+                <strong>The off-the-shelf product does not include audio recording capability</strong> —
+                we modified it to enable first-person audio capture for research. This modification is
+                independent of the commercial product.</p>
                 <div class="device-cta">
-                    <a class="btn btn-accent" href="https://www.thingx.ai/products/nuna-emotion-tracking-pendants" target="_blank" rel="noopener">Get the Nuna pendant →</a>
-                    <a class="btn btn-outline btn-buy" href="https://www.amazon.com/NUNA-Pendant-Monitoring-Mindfulness-Meditation/dp/B0G4QJG5QR" target="_blank" rel="noopener">
-                        <img class="buy-logo" src="assets/img/amazon-smile.svg" alt="" aria-hidden="true">Amazon
+                    <a class="btn btn-outline btn-buy" href="https://www.amazon.com/dp/B0G4QJG5QR" target="_blank" rel="noopener">
+                        <img class="buy-logo" src="assets/img/amazon-smile.svg" alt="" aria-hidden="true">Buy the base device
                     </a>
                     <a class="btn btn-outline btn-buy" href="https://3.cn/2SU-kIe1?jkl=@IEWKw4KAc2@" target="_blank" rel="noopener">
                         <img class="buy-logo" src="assets/img/jd-logo.svg" alt="" aria-hidden="true">JD.com&nbsp;京东
@@ -92,7 +87,7 @@
             <div class="step">
                 <div class="n">1</div>
                 <h3>Wear &amp; capture</h3>
-                <p>The Nuna necklace captures first-person ambient audio through its microphone.</p>
+                <p>The wearable device captures first-person ambient audio through its microphone.</p>
             </div>
             <div class="step">
                 <div class="n">2</div>
@@ -135,7 +130,7 @@
             <div class="card2 feature-demo">
                 <div class="kicker">Try it now</div>
                 <h3>Live browser demo</h3>
-                <p>Explore <strong>Nuna Audio Lab</strong> — the toolkit's web labeling app — with sample data. No install, nothing saved.</p>
+                <p>Explore <strong>Audio Lab</strong> — the toolkit's web labeling app — with sample data. No install, nothing saved.</p>
                 <div class="demo-emoji">🕹️</div>
                 <div class="spacer"></div>
                 <a class="btn btn-dark" href="demo/index.html">Open the demo →</a>
@@ -144,8 +139,8 @@
             <div class="card2">
                 <div class="kicker">Android app</div>
                 <h3>Data-collection app</h3>
-                <p>Pair your Nuna wearable and stream audio to your server (internal beta).</p>
-                <div class="qr"><img src="assets/qr/app.png" alt="QR code to download the Nuna data-collection Android app"></div>
+                <p>Pair your wearable device and stream audio to your server (internal beta).</p>
+                <div class="qr"><img src="assets/qr/app.png" alt="QR code to download the data-collection Android app"></div>
                 <div class="spacer"></div>
                 <a class="btn btn-outline" href="https://www.pgyer.com/nuna-android-cas" target="_blank" rel="noopener">Download (Android)</a>
             </div>

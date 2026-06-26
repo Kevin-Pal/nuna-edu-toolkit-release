@@ -4,7 +4,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20788304.svg)](https://doi.org/10.5281/zenodo.20788304)
 
-Nuna-Edu-Toolkit is an open toolkit from the AIoT Lab at The Chinese University of Hong Kong. Audio captured by the *Nuna* wearable (a smart necklace) is streamed
+Nuna-Edu-Toolkit is an open toolkit from the AIoT Lab at The Chinese University of Hong Kong. Audio captured by a *wearable device* (a modified smart pendant) is streamed
 to a server you control, sliced into 1-minute segments, optionally pre-labeled with ASR,
 and annotated through a web app using a flexible, event-driven schema. Participants stay in
 control: they choose which recordings to share and can delete the rest.
@@ -21,7 +21,7 @@ control: they choose which recordings to share and can delete the rest.
 
 ## Features
 
-- **First-person audio capture** via the Nuna wearable → your own ingest server.
+- **First-person audio capture** via a wearable device → your own ingest server.
 - **1-minute segmentation** with time-grouped browsing (hour → quarter → minute).
 - **ASR-assisted recall:** per-segment speech-to-text previews via a pluggable provider — bring your own ASR model (Alibaba DashScope Qwen3-ASR included); a no-credentials placeholder is bundled for offline runs.
 - **Event-driven, multi-granularity annotation:** *Block* labels for continuous events (scene / behavior / emotion) and *Point* labels for finer sub-events.
@@ -72,7 +72,7 @@ cd nuna-edu-toolkit-release
 ```
 
 The web app is then served on the host `APP_PORT` (default `8080`, see `compose/.env`).
-Open it, register with your Nuna user ID, and start annotating.
+Open it, register with your user ID, and start annotating.
 
 ## Configuration
 
@@ -110,11 +110,13 @@ The `site/` directory is a static GitHub Pages site (landing page + no-backend b
 demo) for showcasing the toolkit. It is deployed by `.github/workflows/pages.yml`.
 QR codes are regenerated reproducibly with `python tools/generate_qr.py`.
 
-## The Nuna pendant
+## The wearable device
 
-First-person audio is captured by **Nuna**, ThingX's AI emotion-tracking pendant.
-Get one from [thingx.ai](https://www.thingx.ai/products/nuna-emotion-tracking-pendants) ·
-[Amazon](https://www.amazon.com/NUNA-Pendant-Monitoring-Mindfulness-Meditation/dp/B0G4QJG5QR) ·
+First-person audio is captured by a commercially available smart pendant that we modified
+to enable audio recording. **The off-the-shelf product does not include recording capability** —
+this modification is independent of the commercial product.
+The base device can be purchased from
+[Amazon](https://www.amazon.com/dp/B0G4QJG5QR) ·
 [JD.com (京东)](https://3.cn/2SU-kIe1?jkl=@IEWKw4KAc2@).
 
 ## Credits
